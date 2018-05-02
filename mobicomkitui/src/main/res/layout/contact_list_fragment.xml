@@ -25,6 +25,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:text="@string/no_contacts"
+            android:textColor="@color/contact_list_no_contacts_found_text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
@@ -34,6 +35,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:text="@string/invite"
+            android:textColor="@color/contact_list_invite_friends_text"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="gone" />
 

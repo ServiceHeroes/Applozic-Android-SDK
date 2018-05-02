@@ -99,7 +99,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text=""
-            android:textColor="@color/message_details_text_color"
+            android:textColor="@color/contact_select_list_name_text"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -120,7 +120,7 @@
         android:paddingLeft="@dimen/listview_item_padding"
         android:paddingStart="@dimen/listview_item_padding"
         android:singleLine="true"
-        android:textColor="@color/message_details_text_color"
+        android:textColor="@color/contact_select_list_name_text"
         android:textSize="18sp"
         android:layout_marginEnd="30dp"
         android:layout_toEndOf="@id/profile_image_relative_layout" />

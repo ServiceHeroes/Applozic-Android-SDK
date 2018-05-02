@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/profile_background">
 
 
         <LinearLayout
@@ -22,7 +22,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/applozic_relative_layout_drawable">
+                android:background="@color/profile_picture_background">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/applozic_user_profile"
@@ -70,7 +70,7 @@
                 android:layout_height="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@color/applozic_profile_devider_color"
+                android:background="@color/profile_divider_color"
                 android:text="@string/sales_manager" />
 
             <RelativeLayout
@@ -88,7 +88,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:visibility="visible"
-                    android:background="@color/applozic_profile_devider_color"/>
+                    android:background="@color/profile_divider_color"/>
                 <View
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -115,7 +115,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/display_name"
-                    android:textColor="@color/message_details_text_color"
+                    android:textColor="@color/profile_titles_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -129,7 +129,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/user_name"
-                    android:textColor="@color/applozic_theme_color_primary"
+                    android:textColor="@color/profile_values_text"
                     android:textSize="20sp" />
             </RelativeLayout>
 
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginStart="4dp"
-                    android:background="@color/applozic_profile_devider_color" />
+                    android:background="@color/profile_divider_color" />
 
                 <View
                     android:layout_width="15dp"
@@ -174,7 +174,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/profile_status"
-                    android:textColor="@color/message_details_text_color"
+                    android:textColor="@color/profile_titles_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -189,7 +189,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/no_status"
-                    android:textColor="@color/applozic_theme_color_primary"
+                    android:textColor="@color/profile_values_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -233,7 +233,7 @@
                     android:layout_width="2dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:background="@color/applozic_profile_devider_color"
+                    android:background="@color/profile_divider_color"
                     android:visibility="visible" />
 
 
@@ -261,7 +261,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/profile_contact_number"
-                    android:textColor="@color/message_details_text_color"
+                    android:textColor="@color/profile_titles_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -273,7 +273,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:text="@string/profile_contact"
-                    android:textColor="@color/applozic_theme_color_primary"
+                    android:textColor="@color/profile_values_text"
                     android:textSize="20sp" />
             </RelativeLayout>
 
@@ -282,7 +282,7 @@
                 android:layout_height="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
-                android:background="@color/applozic_profile_devider_color"
+                android:background="@color/profile_divider_color"
                 android:text="@string/sales_manager"
                 android:visibility="gone" />
 
@@ -300,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginStart="4dp"
-                    android:background="@color/applozic_profile_devider_color" />
+                    android:background="@color/profile_divider_color" />
 
                 <View
                     android:layout_width="15dp"
@@ -316,7 +316,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/notifications"
-                    android:textColor="@color/black"
+                    android:textColor="@color/profile_notifications_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -329,7 +329,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/push_notifications"
-                    android:textColor="@color/applozic_theme_color_primary"
+                    android:textColor="@color/profile_titles_text"
                     android:textSize="20sp" />
 
 
@@ -351,7 +351,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_centerHorizontal="true"
-                android:background="@color/applozic_profile_devider_color"
+                android:background="@color/profile_divider_color"
                 android:text="@string/sales_manager" />
 
             <RelativeLayout
@@ -367,7 +367,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@color/applozic_profile_devider_color" />
+                    android:background="@color/profile_divider_color" />
 
                 <View
                     android:layout_width="15dp"
@@ -384,7 +384,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/data_usage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/profile_values_text"
                     android:textSize="20sp" />
 
                 <TextView
@@ -396,7 +396,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/applozic_network_usage"
-                    android:textColor="@color/applozic_theme_color_primary"
+                    android:textColor="@color/profile_values_text"
                     android:textSize="20sp" />
 
             </RelativeLayout>
@@ -405,7 +405,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_centerHorizontal="true"
-                android:background="@color/applozic_profile_devider_color" />
+                android:background="@color/profile_divider_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -419,7 +419,7 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="15dp"
-                    android:background="@color/applozic_theme_color_primary"
+                    android:background="@color/profile_values_text"
                     android:text="@string/logout"
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true"
