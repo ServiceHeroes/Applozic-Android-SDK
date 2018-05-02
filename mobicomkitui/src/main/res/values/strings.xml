@@ -39,7 +39,8 @@
     <string name="powered_by_applozic_message">We are powered by Applozic</string>
     <string name="failed_to_load_contact">Failed to load contacts : Response : </string>
     <string name="rupee_symbol">\u20B9</string>
-
+    <string name="unblock">Unblock</string>
+    <string name="invite">Invite</string>
 
     <!--
          Used for the AlphabetIndexer in ContactsListFragment to provide quick navigation by
