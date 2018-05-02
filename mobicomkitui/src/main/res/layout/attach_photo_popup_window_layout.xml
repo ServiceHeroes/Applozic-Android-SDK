@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/attach_photo_popup_background"
     android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/upload_gallery_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/applozic_theme_color_primary"
+        android:background="@color/attach_photo_popup_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/gallery"
-            android:textColor="@color/white"
+            android:textColor="@color/attach_photo_popup_text"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/applozic_theme_color_primary"
+        android:background="@color/attach_photo_popup_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/camera_option"
-            android:textColor="@color/white"
+            android:textColor="@color/attach_photo_popup_text"
             android:textSize="20sp" />
 
 
@@ -59,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:background="@color/applozic_theme_color_primary"
+        android:background="@color/attach_photo_popup_background"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -74,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/remove_image"
-            android:textColor="@color/white"
+            android:textColor="@color/attach_photo_popup_text"
             android:textSize="20sp" />
 
     </LinearLayout>
