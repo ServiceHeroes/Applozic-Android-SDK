@@ -53,6 +53,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/no_conversation"
+            android:textColor="@color/conversations_none_text"
             android:visibility="gone" />
 
         <ImageButton
@@ -117,7 +118,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/empty_conversations"
-        android:textColor="@color/empty_conversation_text_color"
+        android:textColor="@color/conversations_none_text"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -128,7 +129,7 @@
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:layout_weight="4"
-        android:background="@color/white"
+        android:background="@color/conversations_background"
         android:clickable="false"
         android:longClickable="false"
         android:visibility="gone">
@@ -251,6 +252,7 @@
             android:gravity="center"
             android:padding="20dp"
             android:textSize="16sp"
+            android:textColor="@color/conversations_is_typing"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -286,7 +288,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/apploizc_transparent_color"
+            android:background="@color/conversations_individual_message_background"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -320,7 +322,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:background="@color/apploizc_transparent_color"
+                        android:background="@color/conversations_emoticons_background"
                         android:paddingEnd="20dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
@@ -333,7 +335,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|start"
-                        android:background="@color/apploizc_transparent_color"
+                        android:background="@color/conversations_attach_background"
                         android:gravity="center"
                         android:minHeight="48dp"
                         android:paddingEnd="20dp"
@@ -362,15 +364,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_weight="8"
-                        android:background="@color/apploizc_transparent_color"
+                        android:background="@color/conversations_write_message_background"
                         android:cursorVisible="true"
                         android:inputType="textCapSentences|textMultiLine"
                         android:maxLines="6"
                         android:minHeight="50dp"
                         android:minLines="2"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/edittext_hint_color"
+                        android:textColor="@color/conversations_type_text"
+                        android:textColorHint="@color/conversations_hint_color"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -419,7 +421,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginStart="6dp"
                         android:text="@string/slide_to_cancel"
-                        android:textColor="#999999"
+                        android:textColor="@color/conversations_slide_to_cancel_text"
                         android:textSize="12dp" />
                 </LinearLayout>
 
@@ -518,6 +520,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
+            android:textColor="@color/conversations_no_longer_participant_text"
             android:text="@string/user_not_in_this_group_text"
             android:textSize="18sp" />
     </LinearLayout>

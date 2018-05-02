@@ -39,7 +39,6 @@
     <string name="powered_by_applozic_message">We are powered by Applozic</string>
     <string name="rupee_symbol">\u20B9</string>
 
-
     <!--
          Used for the AlphabetIndexer in ContactsListFragment to provide quick navigation by
          alphabet using ListView fast scroll.

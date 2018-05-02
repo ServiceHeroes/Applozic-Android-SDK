@@ -37,7 +37,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#7F000000"
+                android:background="@color/group_details_top_background"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax" />
 
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:textAlignment="gravity"
-                android:textColor="@color/white"
+                android:textColor="@color/group_details_created_by"
                 android:textDirection="locale"
                 android:textSize="16sp"
                 app:layout_collapseMode="parallax" />
@@ -150,10 +150,10 @@
                     android:id="@+id/exit_channel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/applozic_theme_color_primary"
+                    android:background="@color/group_details_exit_background"
                     android:configChanges="orientation"
                     android:padding="5dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/group_details_exit_text"
                     android:textSize="15sp" />
 
             </RelativeLayout>
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:configChanges="orientation"
                     android:padding="5dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/group_details_delete_text"
                     android:textSize="15sp" />
 
             </RelativeLayout>

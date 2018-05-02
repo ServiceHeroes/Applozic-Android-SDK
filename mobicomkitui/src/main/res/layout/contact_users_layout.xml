@@ -53,7 +53,7 @@
         android:paddingRight="@dimen/listview_item_padding"
         android:paddingEnd="@dimen/listview_item_padding"
         android:singleLine="true"
-        android:textColor="#757575"
+        android:textColor="@color/contact_users_last_seen_color"
         android:textSize="14sp"
         android:layout_toEndOf="@id/profile_image_relative_layout"
         android:layout_alignParentEnd="true" />
@@ -81,7 +81,7 @@
         android:paddingRight="@dimen/listview_item_padding"
         android:paddingEnd="@dimen/listview_item_padding"
         android:singleLine="true"
-        android:textColor="#616161"
+        android:textColor="@color/contact_users_display_name_color"
         android:textSize="15sp"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/profile_image_relative_layout" />
@@ -106,6 +106,7 @@
         android:paddingTop="1dp"
         android:singleLine="true"
         android:text="@string/admin_text"
+        android:textColor="@color/group_details_admin_text"
         android:textSize="12sp"
         android:visibility="gone"
         android:layout_alignParentEnd="true"
