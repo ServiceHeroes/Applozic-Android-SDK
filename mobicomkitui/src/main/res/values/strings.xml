@@ -36,7 +36,7 @@
     <string name="applozic_contacts_loading_error">You need to have network access for loading contacts</string>
     <string name="applozic_enter_group_name">Please enter a group name to proceed..</string>
     <string name="unblock">Unblock</string>
-    <string name="invite">Invite</string>
+    <string name="invite_user">Invite</string>
 
     <!--
          Used for the AlphabetIndexer in ContactsListFragment to provide quick navigation by

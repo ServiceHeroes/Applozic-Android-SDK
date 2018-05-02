@@ -165,7 +165,7 @@
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="@string/invite"
+            android:text="@string/invite_user"
             android:textAlignment="gravity"
             android:textColor="@color/contact_list_invite_text"
             android:textDirection="locale"
