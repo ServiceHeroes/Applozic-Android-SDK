@@ -1,1 +1,1 @@
-include ':mobicomkitui'
+include ':app', ':mobicommons', ':mobicomkit', ':mobicomkitui'
