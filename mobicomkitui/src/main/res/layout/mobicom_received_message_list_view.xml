@@ -74,6 +74,7 @@
                 android:paddingLeft="2dp"
                 android:paddingRight="2dp"
                 android:paddingStart="2dp"
+                android:textColor="@color/received_message_name"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </LinearLayout>
@@ -95,7 +96,7 @@
                 android:drawablePadding="8dp"
                 android:drawableStart="@drawable/applozic_ic_action_attachment"
                 android:textAlignment="gravity"
-                android:textColor="@color/black"
+                android:textColor="@color/attached_file_received_text"
                 android:textDirection="locale"
                 android:textSize="16sp" />
 
@@ -116,7 +117,7 @@
                 android:paddingRight="8dp"
                 android:text=""
                 android:textAlignment="gravity"
-                android:textColor="@color/message_text_color"
+                android:textColor="@color/received_message_text"
                 android:textDirection="locale"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -160,7 +161,7 @@
             android:paddingRight="2dp"
             android:paddingStart="0dp"
             android:text=""
-            android:textColor="@color/message_details_text_color"
+            android:textColor="@color/received_message_details_status"
             android:textSize="11sp" />
 
         <TextView
@@ -171,6 +172,7 @@
             android:paddingEnd="2dp"
             android:paddingRight="2dp"
             android:paddingStart="2dp"
+            android:textColor="@color/received_message_details_time"
             android:text="@string/created_at_time"
             android:textSize="11sp" />
 
