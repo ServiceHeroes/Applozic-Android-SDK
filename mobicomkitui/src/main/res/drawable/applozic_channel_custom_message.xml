@@ -3,12 +3,12 @@
     android:shape="rectangle">
 
     <!-- view background color -->
-    <solid android:color="#cccccc" />
+    <solid android:color="@color/custom_message_background" />
 
     <!-- view border color and width -->
     <stroke
         android:width="3dp"
-        android:color="#cccccc" />
+        android:color="@color/custom_message_border_color" />
 
     <!-- If you want to add some padding -->
     <padding
