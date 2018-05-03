@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textDirection="locale"
+                android:textColor="@color/reply_message_name"
                 android:textAlignment="gravity"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold" />
@@ -52,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textDirection="locale"
                     android:textAlignment="gravity"
+                    android:textColor="@color/reply_message_text_color"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
