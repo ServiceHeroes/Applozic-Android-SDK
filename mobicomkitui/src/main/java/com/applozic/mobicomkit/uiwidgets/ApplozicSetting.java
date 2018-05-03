@@ -105,7 +105,7 @@ public class ApplozicSetting {
     }
 
     public int getSentMessageBackgroundColor() {
-        return sharedPreferences.getInt(SENT_MESSAGE_BACKGROUND_COLOR, R.color.applozic_theme_color_primary);
+        return sharedPreferences.getInt(SENT_MESSAGE_BACKGROUND_COLOR, R.color.sent_message_background);
     }
 
     public ApplozicSetting setSentMessageBackgroundColor(int color) {
@@ -114,7 +114,7 @@ public class ApplozicSetting {
     }
 
     public int getReceivedMessageBackgroundColor() {
-        return sharedPreferences.getInt(RECEIVED_MESSAGE_BACKGROUND_COLOR, R.color.white);
+        return sharedPreferences.getInt(RECEIVED_MESSAGE_BACKGROUND_COLOR, R.color.received_message_background);
     }
 
     public ApplozicSetting setReceivedMessageBackgroundColor(int color) {
@@ -123,7 +123,7 @@ public class ApplozicSetting {
     }
 
     public int getSentMessageBorderColor() {
-        return sharedPreferences.getInt(SENT_MESSAGE_BORDER_COLOR, R.color.applozic_theme_color_primary);
+        return sharedPreferences.getInt(SENT_MESSAGE_BORDER_COLOR, R.color.sent_message_border_color);
     }
 
     public ApplozicSetting setSentMessageBorderColor(int color) {
@@ -132,7 +132,7 @@ public class ApplozicSetting {
     }
 
     public int getReceivedMessageBorderColor() {
-        return sharedPreferences.getInt(RECEIVED_MESSAGE_BORDER_COLOR, R.color.white);
+        return sharedPreferences.getInt(RECEIVED_MESSAGE_BORDER_COLOR, R.color.received_message_border_color);
     }
 
     public ApplozicSetting setReceivedMessageBorderColor(int color) {
@@ -141,7 +141,7 @@ public class ApplozicSetting {
     }
 
     public int getAttachmentIconsBackgroundColor() {
-        return sharedPreferences.getInt(ATTACHMENT_ICONS_BACKGROUND_COLOR, R.color.applozic_theme_color_primary);
+        return sharedPreferences.getInt(ATTACHMENT_ICONS_BACKGROUND_COLOR, R.color.attachment_color);
     }
 
     public ApplozicSetting setAttachmentIconsBackgroundColor(int color) {
