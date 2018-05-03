@@ -62,7 +62,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean startNewGroup = true;
     private boolean imageCompression;
     private boolean inviteFriendsInContactActivity;
-    private boolean registeredUserContactListCall;
+    private boolean registeredUserContactListCall = true;
     private boolean createAnyContact;
     private boolean showActionDialWithOutCalling;
     private boolean profileLogoutButton;
@@ -73,7 +73,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean hideGroupNameUpdateButton;
     private boolean hideGroupExitButton;
     private boolean hideGroupRemoveMemberOption;
-    private boolean profileOption;
+    private boolean profileOption = true;
     private boolean broadcastOption;
     private boolean hideAttachmentButton;
     private boolean groupUsersOnlineStatus;
