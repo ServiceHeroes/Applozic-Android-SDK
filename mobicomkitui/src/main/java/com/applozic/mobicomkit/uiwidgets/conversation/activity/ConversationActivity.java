@@ -811,6 +811,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             try {
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (upIntent != null && isTaskRoot()) {
+                    ApplozicApplication.broadcastMessage(CHAT_CLOSED);
                     TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
                 }
             } catch (Exception e) {
