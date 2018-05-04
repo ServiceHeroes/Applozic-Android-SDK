@@ -259,6 +259,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         super.onStop();
         ApplozicApplication.broadcastMessage(CHAT_CLOSED);
         Applozic.disconnectPublish(this);
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 
     @Override
