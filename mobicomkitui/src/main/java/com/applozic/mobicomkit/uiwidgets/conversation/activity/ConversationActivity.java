@@ -249,7 +249,6 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     @Override
     protected void onStop() {
         super.onStop();
-        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
         final String deviceKeyString = MobiComUserPreference.getInstance(this).getDeviceKeyString();
         final String userKeyString = MobiComUserPreference.getInstance(this).getSuUserKeyString();
         Intent intent = new Intent(this, ApplozicMqttIntentService.class);
@@ -793,6 +792,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             try {
+                ApplozicApplication.broadcastMessage(CHAT_CLOSED);
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (upIntent != null && isTaskRoot()) {
                     TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
