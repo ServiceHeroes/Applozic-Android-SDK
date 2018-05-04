@@ -48,6 +48,7 @@ public class ActivityLifecycleHandler implements Application.ActivityLifecycleCa
     @Override
     public void onActivityStopped(Activity activity) {
         ++stopped;
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 
     @Override
@@ -57,6 +58,6 @@ public class ActivityLifecycleHandler implements Application.ActivityLifecycleCa
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 }
