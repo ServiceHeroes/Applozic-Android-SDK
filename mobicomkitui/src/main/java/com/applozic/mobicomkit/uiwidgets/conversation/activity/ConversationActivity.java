@@ -71,6 +71,7 @@ import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.BaseContactService;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
+import com.applozic.mobicomkit.uiwidgets.ApplozicApplication;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.ContactsChangeObserver;
 import com.applozic.mobicomkit.uiwidgets.R;
@@ -119,6 +120,7 @@ import java.util.Set;
  */
 public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface, ALStoragePermissionListener {
 
+    private static final String CHAT_CLOSED = "CHAT_CLOSED";
     public static final int LOCATION_SERVICE_ENABLE = 1001;
     public static final String TAKE_ORDER = "takeOrder";
     public static final String CONTACT = "contact";
@@ -254,6 +256,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     protected void onStop() {
         super.onStop();
         Applozic.disconnectPublish(this);
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 
     @Override
