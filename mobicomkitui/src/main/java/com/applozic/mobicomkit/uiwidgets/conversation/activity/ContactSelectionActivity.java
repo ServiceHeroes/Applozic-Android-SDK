@@ -27,6 +27,7 @@ import com.applozic.mobicomkit.broadcast.ConnectivityReceiver;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.database.ContactDatabase;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
+import com.applozic.mobicomkit.uiwidgets.ApplozicApplication;
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.people.contact.ContactSelectionFragment;
 import com.applozic.mobicommons.commons.core.utils.Utils;
@@ -47,6 +48,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     public static final String CHECK_BOX = "CHECK_BOX";
     public static final String IMAGE_LINK = "IMAGE_LINK";
     public static final String GROUP_TYPE = "GROUP_TYPE";
+    public static final String CUSTOM_CONTACTS_LIST = "CUSTOM_CONTACTS_LIST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     Channel channel;
@@ -83,6 +85,12 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (AlCustomizationSettings.getCustomContactsList()){
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST);
+            return;
+        }
+
         setContentView(R.layout.contact_select_layout);
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();

@@ -2,6 +2,8 @@ package com.applozic.mobicomkit.uiwidgets;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * Created by devashish on 28/4/14.
@@ -9,9 +11,11 @@ import android.content.Context;
 public class ApplozicApplication extends Application {
 
     public static final String TITLE = "Chats";
+    public static Context context;
 
     @Override
     public void onCreate() {
+        this.context = getApplicationContext();
         // workaround for http://code.google.com/p/android/issues/detail?id=20915
         try {
            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -29,4 +33,9 @@ public class ApplozicApplication extends Application {
         // MultiDex.install(this);
     }
 
+    public static void broadcastMessage(String actionName){
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(ApplozicApplication.context);
+        Intent localIntent = new Intent(actionName);
+        localBroadcastManager.sendBroadcast(localIntent);
+    }
 }
