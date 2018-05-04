@@ -3,9 +3,8 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
-
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "5.8.4"
@@ -21,10 +20,12 @@ android {
         abortOnError false
 
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     api 'com.google.code.gson:gson:2.8.0'
 }
