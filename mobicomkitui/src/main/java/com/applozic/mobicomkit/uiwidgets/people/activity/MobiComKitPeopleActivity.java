@@ -40,6 +40,7 @@ import com.applozic.mobicomkit.api.people.ChannelInfo;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
+import com.applozic.mobicomkit.uiwidgets.ApplozicApplication;
 import com.applozic.mobicomkit.uiwidgets.ContactsChangeObserver;
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
@@ -74,6 +75,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     private static final String GROUP_ID = "groupId";
     private static final String GROUP_NAME = "groupName";
     private static final String USER_ID = "userId";
+    public static final String CUSTOM_CONTACTS_LIST = "CUSTOM_CONTACTS_LIST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     protected String searchTerm;
@@ -111,6 +113,12 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (AlCustomizationSettings.getCustomContactsList()){
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST);
+            return;
+        }
+
         if (!MobiComUserPreference.getInstance(this).isLoggedIn()) {
             finish();
         }
