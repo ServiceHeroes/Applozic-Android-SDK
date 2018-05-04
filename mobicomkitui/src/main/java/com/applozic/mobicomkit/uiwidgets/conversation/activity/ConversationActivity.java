@@ -70,6 +70,7 @@ import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.BaseContactService;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
+import com.applozic.mobicomkit.uiwidgets.ApplozicApplication;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.ContactsChangeObserver;
 import com.applozic.mobicomkit.uiwidgets.R;
@@ -115,7 +116,7 @@ import java.util.Set;
  * Created by devashish on 6/25/2015.
  */
 public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface {
-
+    private static final String CHAT_CLOSED = "CHAT_CLOSED";
     public static final int LOCATION_SERVICE_ENABLE = 1001;
     public static final String TAKE_ORDER = "takeOrder";
     public static final String CONTACT = "contact";
@@ -248,6 +249,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     @Override
     protected void onStop() {
         super.onStop();
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
         final String deviceKeyString = MobiComUserPreference.getInstance(this).getDeviceKeyString();
         final String userKeyString = MobiComUserPreference.getInstance(this).getSuUserKeyString();
         Intent intent = new Intent(this, ApplozicMqttIntentService.class);
