@@ -104,6 +104,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean showAllDeviceContacts = true;
     private boolean poweredByApplozic = false;
     private boolean enableImageCompression = false;
+    private static boolean customContactsList = false;
 
     private boolean launchChatFromProfilePicOrName;
 
@@ -368,6 +369,14 @@ public class AlCustomizationSettings extends JsonMarker {
 
     public String getChatBackgroundImageName() {
         return chatBackgroundImageName;
+    }
+
+    public static boolean getCustomContactsList() {
+        return customContactsList;
+    }
+
+    public static void setCustomContactsList(boolean customContactsList) {
+        AlCustomizationSettings.customContactsList = customContactsList;
     }
 
     public Map<String, Boolean> getAttachmentOptions() {
