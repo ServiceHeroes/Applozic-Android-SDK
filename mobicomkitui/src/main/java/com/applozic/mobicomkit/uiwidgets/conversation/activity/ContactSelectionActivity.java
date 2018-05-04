@@ -43,6 +43,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     public static final String CHECK_BOX = "CHECK_BOX";
     public static final String IMAGE_LINK = "IMAGE_LINK";
     public static final String GROUP_TYPE = "GROUP_TYPE";
+    public static final String CUSTOM_CONTACTS_LIST = "CUSTOM_CONTACTS_LIST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     Channel channel;
