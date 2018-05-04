@@ -372,6 +372,14 @@ public class AlCustomizationSettings extends JsonMarker {
         return chatBackgroundImageName;
     }
 
+    public static boolean getCustomContactsList() {
+        return customContactsList;
+    }
+
+    public static void setCustomContactsList(boolean customContactsList) {
+        AlCustomizationSettings.customContactsList = customContactsList;
+    }
+
     public Map<String, Boolean> getAttachmentOptions() {
         return attachmentOptions;
     }

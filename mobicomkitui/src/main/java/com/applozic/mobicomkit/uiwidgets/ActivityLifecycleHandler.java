@@ -11,6 +11,7 @@ import android.os.Bundle;
  */
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ActivityLifecycleHandler implements Application.ActivityLifecycleCallbacks {
+    private static final String CHAT_CLOSED = "CHAT_CLOSED";
 
     private static int resumed;
     private static int paused;
@@ -49,6 +50,7 @@ public class ActivityLifecycleHandler implements Application.ActivityLifecycleCa
     @Override
     public void onActivityStopped(Activity activity) {
         ++stopped;
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 
     @Override
@@ -58,6 +60,6 @@ public class ActivityLifecycleHandler implements Application.ActivityLifecycleCa
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        ApplozicApplication.broadcastMessage(CHAT_CLOSED);
     }
 }
