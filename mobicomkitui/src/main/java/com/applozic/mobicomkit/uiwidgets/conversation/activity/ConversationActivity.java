@@ -792,9 +792,9 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             try {
-                ApplozicApplication.broadcastMessage(CHAT_CLOSED);
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (upIntent != null && isTaskRoot()) {
+                    ApplozicApplication.broadcastMessage(CHAT_CLOSED);
                     TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
                 }
             } catch (Exception e) {
