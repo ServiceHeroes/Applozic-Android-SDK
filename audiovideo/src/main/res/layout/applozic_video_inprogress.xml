@@ -21,5 +21,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
+        android:textColor="@color/video_connection_text"
         android:text="Connecting...." />
 </LinearLayout>
