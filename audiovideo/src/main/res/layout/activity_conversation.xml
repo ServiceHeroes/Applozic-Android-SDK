@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:background="@color/video_call_top_color"
+        android:background="@color/video_audio_call_top_color"
         android:gravity="start">
 
         <TextView
@@ -34,7 +34,7 @@
             android:padding="@dimen/fab_margin"
             android:singleLine="true"
             android:text=" "
-            android:textColor="@color/white"
+            android:textColor="@color/video_audio_call_contact_name"
             android:textSize="20sp" />
 
         <RelativeLayout
@@ -101,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:gravity="center"
+        android:background="@color/video_call_bottom_color"
         android:orientation="vertical">
 
 
