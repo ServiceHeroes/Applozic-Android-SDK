@@ -221,8 +221,9 @@
     <color name="conversation_list_name">#000000</color>
     <color name="conversation_list_message">#FF8E1F</color>
     <color name="conversation_list_time_text">#000000</color>
-    <color name="conversation_list_message_unread_text">#FF8E1F</color>
+    <color name="conversation_list_message_unread_text">#FFFFFF</color>
     <color name="message_details_text_color">#000000</color>
+    <color name="conversation_list_unread_background">#FF8E1F</color>
 
     <!-- custom message -->
     <color name="custom_message_background">#FF8E1F</color>
