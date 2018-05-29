@@ -175,7 +175,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);
             tabLayout.addOnTabSelectedListener(this);
-        } else {
+        } else if (!AlCustomizationSettings.getCustomContactsList()){
             addFragment(this, appContactFragment, "AppContactFragment");
         }
 
