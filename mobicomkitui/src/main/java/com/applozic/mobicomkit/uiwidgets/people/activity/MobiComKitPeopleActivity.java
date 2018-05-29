@@ -57,6 +57,7 @@ import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.mobicommons.people.contact.ContactUtils;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MobiComKitPeopleActivity extends AppCompatActivity implements OnContactsInteractionListener,
-        SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener {
+        SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener, Serializable {
 
     public static final String SHARED_TEXT = "SHARED_TEXT";
     public static final String FORWARD_MESSAGE = "forwardMessage";
@@ -114,8 +115,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         super.onCreate(savedInstanceState);
 
         if (AlCustomizationSettings.getCustomContactsList()){
-            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST);
-            return;
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, null, this);
         }
 
         if (!MobiComUserPreference.getInstance(this).isLoggedIn()) {
