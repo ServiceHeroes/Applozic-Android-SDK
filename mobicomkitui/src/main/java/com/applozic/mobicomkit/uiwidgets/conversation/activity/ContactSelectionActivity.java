@@ -39,10 +39,12 @@ import com.applozic.mobicommons.people.contact.Contact;
 
 import java.util.List;
 
+import java.io.Serializable;
+
 /**
  * Created by sunil on 6/2/16.
  */
-public class ContactSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ContactSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, Serializable {
     public static final String CHANNEL = "CHANNEL_NAME";
     public static final String CHANNEL_OBJECT = "CHANNEL";
     public static final String CHECK_BOX = "CHECK_BOX";
@@ -87,8 +89,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
 
         if (AlCustomizationSettings.getCustomContactsList()){
-            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST);
-            return;
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, this, null);
         }
 
         setContentView(R.layout.contact_select_layout);
