@@ -164,17 +164,20 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
         channelFragment = new ChannelFragment();
         setSearchListFragment(appContactFragment);
-        if (alCustomizationSettings.isStartNewGroup()) {
-            viewPager = (ViewPager) findViewById(R.id.viewPager);
-            viewPager.setVisibility(View.VISIBLE);
-            setupViewPager(viewPager);
-            tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-            tabLayout.setVisibility(View.VISIBLE);
-            tabLayout.setupWithViewPager(viewPager);
-            tabLayout.addOnTabSelectedListener(this);
-        } else if (!AlCustomizationSettings.getCustomContactsList()){
-            addFragment(this, appContactFragment, "AppContactFragment");
+        if (!AlCustomizationSettings.getCustomContactsList()){
+            if (alCustomizationSettings.isStartNewGroup()) {
+                viewPager = (ViewPager) findViewById(R.id.viewPager);
+                viewPager.setVisibility(View.VISIBLE);
+                setupViewPager(viewPager);
+                tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+                tabLayout.setVisibility(View.VISIBLE);
+                tabLayout.setupWithViewPager(viewPager);
+                tabLayout.addOnTabSelectedListener(this);
+            } else {
+                addFragment(this, appContactFragment, "AppContactFragment");
+            }
         }
+
       /*  mContactsListFragment = (AppContactFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contact_list);*/
 
