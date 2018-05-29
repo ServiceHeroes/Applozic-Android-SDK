@@ -131,7 +131,10 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
-        addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
+        if (!AlCustomizationSettings.getCustomContactsList()){
+            addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
+
+        }
         connectivityReceiver = new ConnectivityReceiver();
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
