@@ -179,8 +179,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             addFragment(this, appContactFragment, "AppContactFragment");
         }
 
-
-
       /*  mContactsListFragment = (AppContactFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contact_list);*/
 
