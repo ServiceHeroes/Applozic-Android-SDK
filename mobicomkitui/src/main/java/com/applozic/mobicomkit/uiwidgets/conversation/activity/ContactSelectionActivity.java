@@ -32,10 +32,12 @@ import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.SearchListFragment;
 import com.applozic.mobicommons.people.channel.Channel;
 
+import java.io.Serializable;
+
 /**
  * Created by sunil on 6/2/16.
  */
-public class ContactSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ContactSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, Serializable {
     public static final String CHANNEL = "CHANNEL_NAME";
     public static final String CHANNEL_OBJECT = "CHANNEL";
     public static final String CHECK_BOX = "CHECK_BOX";
@@ -80,8 +82,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
 
         if (AlCustomizationSettings.getCustomContactsList()){
-            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST);
-            return;
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, this, null);
         }
 
         setContentView(R.layout.contact_select_layout);
