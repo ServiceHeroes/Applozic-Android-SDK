@@ -43,7 +43,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     public static final String CHECK_BOX = "CHECK_BOX";
     public static final String IMAGE_LINK = "IMAGE_LINK";
     public static final String GROUP_TYPE = "GROUP_TYPE";
-    public static final String CUSTOM_CONTACTS_LIST = "CUSTOM_CONTACTS_LIST";
+    public static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     Channel channel;
@@ -81,8 +81,8 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AlCustomizationSettings.getCustomContactsService() != null){
-            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, this, null);
+        if (AlCustomizationSettings.getAddContactBroadcast()){
+            ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, this, null);
         }
 
         setContentView(R.layout.contact_select_layout);
@@ -124,7 +124,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
-        if (AlCustomizationSettings.getCustomContactsService() == null){
+        if (!AlCustomizationSettings.getAddContactBroadcast()){
             addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
         }
