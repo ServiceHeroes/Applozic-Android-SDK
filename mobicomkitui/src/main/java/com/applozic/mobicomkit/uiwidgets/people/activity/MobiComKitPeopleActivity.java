@@ -115,7 +115,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AlCustomizationSettings.getCustomContactsList()){
+        if (AlCustomizationSettings.getCustomContactsService() != null){
             ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, null, this);
         }
 
@@ -164,7 +164,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
         channelFragment = new ChannelFragment();
         setSearchListFragment(appContactFragment);
-        if (!AlCustomizationSettings.getCustomContactsList()){
+        if (AlCustomizationSettings.getCustomContactsService() == null){
             if (alCustomizationSettings.isStartNewGroup()) {
                 viewPager = (ViewPager) findViewById(R.id.viewPager);
                 viewPager.setVisibility(View.VISIBLE);
