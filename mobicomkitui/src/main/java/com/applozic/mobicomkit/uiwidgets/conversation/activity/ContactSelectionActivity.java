@@ -81,7 +81,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AlCustomizationSettings.getCustomContactsList()){
+        if (AlCustomizationSettings.getCustomContactsService() != null){
             ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, this, null);
         }
 
@@ -124,7 +124,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
-        if (!AlCustomizationSettings.getCustomContactsList()){
+        if (AlCustomizationSettings.getCustomContactsService() == null){
             addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
         }
