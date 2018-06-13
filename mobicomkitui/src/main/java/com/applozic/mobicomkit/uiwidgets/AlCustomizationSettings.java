@@ -107,7 +107,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean disableGlobalStoragePermission = false;
     private boolean enableMessageFastScroll = false;
     private boolean isContactSearchFromServer = false;
-    private static boolean customContactsList = false;
+    private static boolean addContactBroadcast = false;
 
     private boolean launchChatFromProfilePicOrName = false;
 
@@ -374,12 +374,12 @@ public class AlCustomizationSettings extends JsonMarker {
         return chatBackgroundImageName;
     }
 
-    public static String getCustomContactsService() {
-        return customContactsService;
+    public static boolean getAddContactBroadcast() {
+        return addContactBroadcast;
     }
 
-    public static void setCustomContactsService(String customContactsService) {
-        AlCustomizationSettings.customContactsService = customContactsService;
+    public static void setAddContactBroadcast(boolean addContactBroadcast) {
+        AlCustomizationSettings.addContactBroadcast = addContactBroadcast;
     }
 
     public Map<String, Boolean> getAttachmentOptions() {
