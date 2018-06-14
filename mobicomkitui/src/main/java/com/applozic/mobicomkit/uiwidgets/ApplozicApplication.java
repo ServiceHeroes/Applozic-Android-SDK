@@ -1,5 +1,6 @@
 package com.applozic.mobicomkit.uiwidgets;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -35,12 +36,12 @@ public class ApplozicApplication extends Application {
         // MultiDex.install(this);
     }
 
-    public static void broadcastMessage(String actionName,
-        ConversationActivity activity) {
+    public static void broadcastMessage(String actionName, String name,
+        final Class<? extends Activity> activity) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
             .getInstance(ApplozicApplication.context);
         Intent localIntent = new Intent(actionName);
-        localIntent.putExtra(actionName, activity);
+        localIntent.putExtra(name, activity);
         localBroadcastManager.sendBroadcast(localIntent);
     }
 }
