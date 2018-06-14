@@ -159,7 +159,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
                 }
             } else {
                 actionBar.setTitle(getString(R.string.search_title));
-                userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
             }
         } else {
             actionBar.setTitle(getString(R.string.search_title));
