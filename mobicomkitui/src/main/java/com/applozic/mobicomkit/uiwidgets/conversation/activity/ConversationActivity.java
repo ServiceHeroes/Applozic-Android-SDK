@@ -748,8 +748,6 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             } else {
                 if(!AlCustomizationSettings.getAddContactBroadcast()) {
                     conversationUIService.startContactActivityForResult();
-                } else {
-                    ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, this);
                 }
             }
         } else if (id == R.id.conversations) {
@@ -758,8 +756,6 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                 intent.putExtra(ChannelCreateActivity.GROUP_TYPE,
                     Channel.GroupType.PUBLIC.getValue().intValue());
                 startActivity(intent);
-            }  {
-                ApplozicApplication.broadcastMessage(CREATE_GROUP_BROADCAST, this);
             }
         } else if (id == R.id.broadcast) {
             Intent intent = new Intent(this, ContactSelectionActivity.class);
