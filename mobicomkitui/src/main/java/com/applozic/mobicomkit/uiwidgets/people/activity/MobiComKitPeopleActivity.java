@@ -76,7 +76,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     private static final String GROUP_ID = "groupId";
     private static final String GROUP_NAME = "groupName";
     private static final String USER_ID = "userId";
-    public static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     protected String searchTerm;
@@ -161,28 +160,24 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             actionBar.setTitle(getString(R.string.search_title));
         }
 
-        if (AlCustomizationSettings.getAddContactBroadcast()) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, null, this);
+        appContactFragment = new AppContactFragment(userIdArray);
+        appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
+        channelFragment = new ChannelFragment();
+        setSearchListFragment(appContactFragment);
+
+        if (alCustomizationSettings.isStartNewGroup()) {
+            viewPager = (ViewPager) findViewById(R.id.viewPager);
+            viewPager.setVisibility(View.VISIBLE);
+            setupViewPager(viewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+            tabLayout.setVisibility(View.VISIBLE);
+            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.addOnTabSelectedListener(this);
         } else {
-            appContactFragment = new AppContactFragment(userIdArray);
-            appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
-            channelFragment = new ChannelFragment();
-            setSearchListFragment(appContactFragment);
-
-            if (alCustomizationSettings.isStartNewGroup()) {
-                viewPager = (ViewPager) findViewById(R.id.viewPager);
-                viewPager.setVisibility(View.VISIBLE);
-                setupViewPager(viewPager);
-                tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-                tabLayout.setVisibility(View.VISIBLE);
-                tabLayout.setupWithViewPager(viewPager);
-                tabLayout.addOnTabSelectedListener(this);
-            } else {
-                addFragment(this, appContactFragment, "AppContactFragment");
-            }
-
+            addFragment(this, appContactFragment, "AppContactFragment");
         }
+
+
 
       /*  mContactsListFragment = (AppContactFragment)
                 getSupportFragmentManager().findFragmentById(R.id.contact_list);*/
@@ -209,18 +204,18 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!AlCustomizationSettings.getAddContactBroadcast()) {
-            getMenuInflater().inflate(R.menu.menu_contact, menu);
-            MenuItem searchItem = menu.findItem(R.id.menu_search);
-            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-            searchView.setQueryHint(getResources().getString(R.string.search_hint));
-            if (Utils.hasICS()) {
-                searchItem.collapseActionView();
-            }
-            searchView.setOnQueryTextListener(this);
-            searchView.setSubmitButtonEnabled(true);
-            searchView.setIconified(true);
+
+        getMenuInflater().inflate(R.menu.menu_contact, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        if (Utils.hasICS()) {
+            searchItem.collapseActionView();
         }
+        searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setIconified(true);
+
         return super.onCreateOptionsMenu(menu);
     }
 
