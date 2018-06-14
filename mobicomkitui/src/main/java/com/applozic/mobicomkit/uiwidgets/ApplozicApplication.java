@@ -1,5 +1,6 @@
 package com.applozic.mobicomkit.uiwidgets;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
