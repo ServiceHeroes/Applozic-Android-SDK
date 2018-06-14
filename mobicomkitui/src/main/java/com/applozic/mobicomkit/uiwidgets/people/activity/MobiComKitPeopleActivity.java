@@ -65,8 +65,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class MobiComKitPeopleActivity extends AppCompatActivity implements OnContactsInteractionListener,
-        SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener, Serializable {
+public class MobiComKitPeopleActivity extends AppCompatActivity implements
+    OnContactsInteractionListener,
+    SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener, Serializable {
 
     public static final String SHARED_TEXT = "SHARED_TEXT";
     public static final String FORWARD_MESSAGE = "forwardMessage";
@@ -94,13 +95,14 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     private boolean isSearchResultView = false;
     private ContactsChangeObserver observer;
 
-    public static void addFragment(FragmentActivity fragmentActivity, Fragment fragmentToAdd, String fragmentTag) {
+    public static void addFragment(FragmentActivity fragmentActivity, Fragment fragmentToAdd,
+        String fragmentTag) {
         FragmentManager supportFragmentManager = fragmentActivity.getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = supportFragmentManager
-                .beginTransaction();
+            .beginTransaction();
         fragmentTransaction.replace(R.id.layout_child_activity, fragmentToAdd,
-                fragmentTag);
+            fragmentTag);
 
         if (supportFragmentManager.getBackStackEntryCount() > 1) {
             supportFragmentManager.popBackStack();
@@ -114,7 +116,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AlCustomizationSettings.getAddContactBroadcast()){
+        if (AlCustomizationSettings.getAddContactBroadcast()) {
             ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, null, this);
         }
 
@@ -124,7 +126,8 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         setContentView(R.layout.people_activity);
         String jsonString = FileUtils.loadSettingsJsonFile(getApplicationContext());
         if (!TextUtils.isEmpty(jsonString)) {
-            alCustomizationSettings = (AlCustomizationSettings) GsonUtils.getObjectFromJson(jsonString, AlCustomizationSettings.class);
+            alCustomizationSettings = (AlCustomizationSettings) GsonUtils
+                .getObjectFromJson(jsonString, AlCustomizationSettings.class);
         } else {
             alCustomizationSettings = new AlCustomizationSettings();
         }
@@ -134,16 +137,18 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         setSupportActionBar(myToolbar);
         // Set up the action bar.
         actionBar = getSupportActionBar();
-        if (!TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimary()) && !TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimaryDark())) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(alCustomizationSettings.getThemeColorPrimary())));
+        if (!TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimary()) && !TextUtils
+            .isEmpty(alCustomizationSettings.getThemeColorPrimaryDark())) {
+            actionBar.setBackgroundDrawable(new ColorDrawable(
+                Color.parseColor(alCustomizationSettings.getThemeColorPrimary())));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(Color.parseColor(alCustomizationSettings.getThemeColorPrimaryDark()));
+                getWindow().setStatusBarColor(
+                    Color.parseColor(alCustomizationSettings.getThemeColorPrimaryDark()));
             }
         }
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-
 
         intentExtra = getIntent();
         action = intentExtra.getAction();
@@ -159,11 +164,12 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         } else {
             actionBar.setTitle(getString(R.string.search_title));
         }
-        appContactFragment = new AppContactFragment(userIdArray);
-        appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
-        channelFragment = new ChannelFragment();
-        setSearchListFragment(appContactFragment);
-        if (!AlCustomizationSettings.getAddContactBroadcast()){
+        if (!AlCustomizationSettings.getAddContactBroadcast()) {
+            appContactFragment = new AppContactFragment(userIdArray);
+            appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
+            channelFragment = new ChannelFragment();
+            setSearchListFragment(appContactFragment);
+
             if (alCustomizationSettings.isStartNewGroup()) {
                 viewPager = (ViewPager) findViewById(R.id.viewPager);
                 viewPager.setVisibility(View.VISIBLE);
@@ -195,7 +201,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         if (Applozic.getInstance(this).isDeviceContactSync()) {
             observer = new ContactsChangeObserver(null, this);
             getApplicationContext().getContentResolver().registerContentObserver(
-                    ContactsContract.Contacts.CONTENT_URI, true, observer);
+                ContactsContract.Contacts.CONTENT_URI, true, observer);
         }
     }
 
@@ -224,10 +230,13 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     @Override
     public void onContactSelected(Uri contactUri) {
         Long contactId = ContactUtils.getContactId(getContentResolver(), contactUri);
-        Map<String, String> phoneNumbers = ContactUtils.getPhoneNumbers(getApplicationContext(), contactId);
+        Map<String, String> phoneNumbers = ContactUtils
+            .getPhoneNumbers(getApplicationContext(), contactId);
 
         if (phoneNumbers.isEmpty()) {
-            Toast toast = Toast.makeText(this.getApplicationContext(), R.string.phone_number_not_present, Toast.LENGTH_SHORT);
+            Toast toast = Toast
+                .makeText(this.getApplicationContext(), R.string.phone_number_not_present,
+                    Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             return;
@@ -250,23 +259,30 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     public void onGroupSelected(Channel channel) {
         Intent intent = null;
         if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if (!ChannelService.getInstance(MobiComKitPeopleActivity.this).processIsUserPresentInChannel(channel.getKey())) {
-                Toast.makeText(this, getString(R.string.unable_share_message), Toast.LENGTH_SHORT).show();
+            if (!ChannelService.getInstance(MobiComKitPeopleActivity.this)
+                .processIsUserPresentInChannel(channel.getKey())) {
+                Toast.makeText(this, getString(R.string.unable_share_message), Toast.LENGTH_SHORT)
+                    .show();
                 return;
             }
             if ("text/plain".equals(type)) {
                 intent = new Intent(this, ConversationActivity.class);
                 intent.putExtra(GROUP_ID, channel.getKey());
                 intent.putExtra(GROUP_NAME, channel.getName());
-                intent.putExtra(ConversationUIService.DEFAULT_TEXT, intentExtra.getStringExtra(Intent.EXTRA_TEXT));
+                intent.putExtra(ConversationUIService.DEFAULT_TEXT,
+                    intentExtra.getStringExtra(Intent.EXTRA_TEXT));
                 startActivity(intent);
                 finish();
-            } else if (type.startsWith("image/") || type.startsWith("audio/") || type.startsWith("video/")) {
+            } else if (type.startsWith("image/") || type.startsWith("audio/") || type
+                .startsWith("video/")) {
                 Uri fileUri = (Uri) intentExtra.getParcelableExtra(Intent.EXTRA_STREAM);
                 if (fileUri != null) {
-                    long maxSize = alCustomizationSettings.getMaxAttachmentSizeAllowed() * 1024 * 1024;
+                    long maxSize =
+                        alCustomizationSettings.getMaxAttachmentSizeAllowed() * 1024 * 1024;
                     if (FileUtils.isMaxUploadSizeReached(this, fileUri, maxSize)) {
-                        Toast.makeText(this, getString(R.string.info_attachment_max_allowed_file_size), Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,
+                            getString(R.string.info_attachment_max_allowed_file_size),
+                            Toast.LENGTH_LONG).show();
                         return;
                     }
                     if (FileUtils.isContentScheme(fileUri)) {
@@ -277,11 +293,15 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
                             new ShareAsyncTask(this, fileUri, null, channel,mimeType).execute();
                         }
                     } else {
-                        Intent intentImage = new Intent(this, MobiComAttachmentSelectorActivity.class);
-                        intentImage.putExtra(MobiComAttachmentSelectorActivity.GROUP_ID, channel.getKey());
-                        intentImage.putExtra(MobiComAttachmentSelectorActivity.GROUP_NAME, channel.getName());
+                        Intent intentImage = new Intent(this,
+                            MobiComAttachmentSelectorActivity.class);
+                        intentImage
+                            .putExtra(MobiComAttachmentSelectorActivity.GROUP_ID, channel.getKey());
+                        intentImage.putExtra(MobiComAttachmentSelectorActivity.GROUP_NAME,
+                            channel.getName());
                         if (fileUri != null) {
-                            intentImage.putExtra(MobiComAttachmentSelectorActivity.URI_LIST, fileUri);
+                            intentImage
+                                .putExtra(MobiComAttachmentSelectorActivity.URI_LIST, fileUri);
                         }
                         startActivity(intentImage);
                     }
@@ -302,20 +322,24 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         Intent intent = null;
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if (contact.isBlocked()) {
-                Toast.makeText(this, getString(R.string.user_is_blocked), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.user_is_blocked), Toast.LENGTH_SHORT)
+                    .show();
                 return;
             }
             if ("text/plain".equals(type)) {
                 intent = new Intent(this, ConversationActivity.class);
                 intent.putExtra(USER_ID, contact.getUserId());
-                intent.putExtra(ConversationUIService.DEFAULT_TEXT, intentExtra.getStringExtra(Intent.EXTRA_TEXT));
+                intent.putExtra(ConversationUIService.DEFAULT_TEXT,
+                    intentExtra.getStringExtra(Intent.EXTRA_TEXT));
                 startActivity(intent);
                 finish();
-            } else if (type.startsWith("image/") || type.startsWith("audio/") || type.startsWith("video/")) {
+            } else if (type.startsWith("image/") || type.startsWith("audio/") || type
+                .startsWith("video/")) {
                 Uri fileUri = (Uri) intentExtra.getParcelableExtra(Intent.EXTRA_STREAM);
                 long maxSize = alCustomizationSettings.getMaxAttachmentSizeAllowed() * 1024 * 1024;
                 if (FileUtils.isMaxUploadSizeReached(this, fileUri, maxSize)) {
-                    Toast.makeText(this, getString(R.string.info_attachment_max_allowed_file_size), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.info_attachment_max_allowed_file_size),
+                        Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (FileUtils.isContentScheme(fileUri)) {
@@ -328,8 +352,10 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
 
                 } else {
                     Intent intentImage = new Intent(this, MobiComAttachmentSelectorActivity.class);
-                    intentImage.putExtra(MobiComAttachmentSelectorActivity.USER_ID, contact.getUserId());
-                    intentImage.putExtra(MobiComAttachmentSelectorActivity.DISPLAY_NAME, contact.getDisplayName());
+                    intentImage
+                        .putExtra(MobiComAttachmentSelectorActivity.USER_ID, contact.getUserId());
+                    intentImage.putExtra(MobiComAttachmentSelectorActivity.DISPLAY_NAME,
+                        contact.getDisplayName());
                     if (fileUri != null) {
                         intentImage.putExtra(MobiComAttachmentSelectorActivity.URI_LIST, fileUri);
                     }
@@ -339,7 +365,9 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         } else {
 
             if (ApplozicClient.getInstance(this).isStartGroupOfTwo()) {
-                new ChannelCreateAsyncTask(MobiComUserPreference.getInstance(this).getParentGroupKey(), contact, MobiComKitPeopleActivity.this).execute((Void) null);
+                new ChannelCreateAsyncTask(
+                    MobiComUserPreference.getInstance(this).getParentGroupKey(), contact,
+                    MobiComKitPeopleActivity.this).execute((Void) null);
             } else {
                 intent = new Intent();
                 intent.putExtra(USER_ID, contact.getUserId());
@@ -476,6 +504,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
         private final List<Fragment> fragmentList = new ArrayList<>();
         private final List<String> titleList = new ArrayList<>();
 
@@ -556,16 +585,23 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
                 Context context = contextWeakReference.get();
                 if (file != null && file.exists() && context != null) {
                     Uri fileUri = Uri.parse(file.getAbsolutePath());
-                    Intent sendAttachmentIntent = new Intent(context, MobiComAttachmentSelectorActivity.class);
+                    Intent sendAttachmentIntent = new Intent(context,
+                        MobiComAttachmentSelectorActivity.class);
                     if (channel != null) {
-                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.GROUP_ID, channel.getKey());
-                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.GROUP_NAME, channel.getName());
+                        sendAttachmentIntent
+                            .putExtra(MobiComAttachmentSelectorActivity.GROUP_ID, channel.getKey());
+                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.GROUP_NAME,
+                            channel.getName());
                     } else if (contact != null) {
-                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.USER_ID, contact.getUserId());
-                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.DISPLAY_NAME, contact.getDisplayName());
+                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.USER_ID,
+                            contact.getUserId());
+                        sendAttachmentIntent
+                            .putExtra(MobiComAttachmentSelectorActivity.DISPLAY_NAME,
+                                contact.getDisplayName());
                     }
                     if (fileUri != null) {
-                        sendAttachmentIntent.putExtra(MobiComAttachmentSelectorActivity.URI_LIST, fileUri);
+                        sendAttachmentIntent
+                            .putExtra(MobiComAttachmentSelectorActivity.URI_LIST, fileUri);
                     }
                     context.startActivity(sendAttachmentIntent);
                 }
@@ -574,6 +610,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
     }
 
     public class ChannelCreateAsyncTask extends AsyncTask<Void, Integer, Channel> {
+
         private ChannelService channelService;
         private ProgressDialog progressDialog;
         private Context context;
@@ -584,7 +621,8 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         Contact withUserContact;
         Integer localParentGroupKey;
 
-        public ChannelCreateAsyncTask(Integer parentGroupKey, Contact withUserContact, Context context) {
+        public ChannelCreateAsyncTask(Integer parentGroupKey, Contact withUserContact,
+            Context context) {
             this.context = context;
             this.channelService = ChannelService.getInstance(context);
             this.withUserContact = withUserContact;
@@ -598,23 +636,27 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(context, "",
-                    context.getString(R.string.please_wait_creating_group_of_two), true);
+                context.getString(R.string.please_wait_creating_group_of_two), true);
         }
 
         @Override
         protected Channel doInBackground(Void... params) {
 
-            if (localParentGroupKey != null && localParentGroupKey != 0 && withUserContact != null) {
+            if (localParentGroupKey != null && localParentGroupKey != 0
+                && withUserContact != null) {
                 List<String> userIdList = new ArrayList<>();
                 userIdList.add(withUserContact.getContactIds());
                 int result = loggedInUserId.compareTo(withUserContact.getContactIds());
                 StringBuffer stringBuffer = new StringBuffer();
                 if (result == 0) {
-                    stringBuffer.append(localParentGroupKey).append(":").append(loggedInUserId).append(":").append(withUserContact.getContactIds());
+                    stringBuffer.append(localParentGroupKey).append(":").append(loggedInUserId)
+                        .append(":").append(withUserContact.getContactIds());
                 } else if (result < 0) {
-                    stringBuffer.append(localParentGroupKey).append(":").append(loggedInUserId).append(":").append(withUserContact.getContactIds());
+                    stringBuffer.append(localParentGroupKey).append(":").append(loggedInUserId)
+                        .append(":").append(withUserContact.getContactIds());
                 } else {
-                    stringBuffer.append(localParentGroupKey).append(":").append(withUserContact.getContactIds()).append(":").append(loggedInUserId);
+                    stringBuffer.append(localParentGroupKey).append(":")
+                        .append(withUserContact.getContactIds()).append(":").append(loggedInUserId);
                 }
                 ChannelInfo channelInfo = new ChannelInfo(stringBuffer.toString(), userIdList);
                 channelInfo.setClientGroupId(stringBuffer.toString());
