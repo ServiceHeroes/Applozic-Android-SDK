@@ -108,6 +108,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean enableMessageFastScroll = false;
     private boolean isContactSearchFromServer = false;
     private static boolean addContactBroadcast = false;
+    private static boolean createGroupBroadcast = false;
 
     private boolean launchChatFromProfilePicOrName = false;
 
@@ -380,6 +381,14 @@ public class AlCustomizationSettings extends JsonMarker {
 
     public static void setAddContactBroadcast(boolean addContactBroadcast) {
         AlCustomizationSettings.addContactBroadcast = addContactBroadcast;
+    }
+
+    public static boolean getCreateGroupBroadcast() {
+        return createGroupBroadcast;
+    }
+
+    public static void setCreateGroupBroadcast(boolean createGroupBroadcast) {
+        AlCustomizationSettings.createGroupBroadcast = createGroupBroadcast;
     }
 
     public Map<String, Boolean> getAttachmentOptions() {
