@@ -68,7 +68,7 @@ import java.util.Map;
 
 public class MobiComKitPeopleActivity extends AppCompatActivity implements
     OnContactsInteractionListener,
-    SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener, Serializable {
+    SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener {
 
     public static final String SHARED_TEXT = "SHARED_TEXT";
     public static final String FORWARD_MESSAGE = "forwardMessage";
