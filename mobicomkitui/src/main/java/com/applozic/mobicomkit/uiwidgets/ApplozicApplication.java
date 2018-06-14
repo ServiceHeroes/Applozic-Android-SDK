@@ -3,10 +3,8 @@ package com.applozic.mobicomkit.uiwidgets;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
-import java.io.Serializable;
 
 
 /**
@@ -37,12 +35,12 @@ public class ApplozicApplication extends Application {
         // MultiDex.install(this);
     }
 
-    public static void broadcastMessage(String actionName, String name,
-        final ConversationActivity activity) {
+    public static void broadcastMessage(String actionName,
+        ConversationActivity activity) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
             .getInstance(ApplozicApplication.context);
         Intent localIntent = new Intent(actionName);
-        localIntent.putExtra(name, (Parcelable) activity);
+        localIntent.putExtra(actionName, activity);
         localBroadcastManager.sendBroadcast(localIntent);
     }
 }
