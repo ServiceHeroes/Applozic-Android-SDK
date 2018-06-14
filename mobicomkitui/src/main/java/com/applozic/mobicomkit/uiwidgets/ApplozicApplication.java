@@ -1,11 +1,11 @@
 package com.applozic.mobicomkit.uiwidgets;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
+import java.io.Serializable;
 
 
 /**
@@ -37,11 +37,11 @@ public class ApplozicApplication extends Application {
     }
 
     public static void broadcastMessage(String actionName, String name,
-        final Class<? extends Activity> activity) {
+        final ConversationActivity activity) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
             .getInstance(ApplozicApplication.context);
         Intent localIntent = new Intent(actionName);
-        localIntent.putExtra(name, activity);
+        localIntent.putExtra(name, (Serializable) activity);
         localBroadcastManager.sendBroadcast(localIntent);
     }
 }
