@@ -145,27 +145,26 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements OnCon
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
-        if (!AlCustomizationSettings.getAddContactBroadcast()){
 
-            intentExtra = getIntent();
-            action = intentExtra.getAction();
-            type = intentExtra.getType();
+        intentExtra = getIntent();
+        action = intentExtra.getAction();
+        type = intentExtra.getType();
 
-            if (getIntent().getExtras() != null) {
-                if (Intent.ACTION_SEND.equals(action) && type != null) {
-                    actionBar.setTitle(getString(R.string.send_message_to));
-                } else {
-                    actionBar.setTitle(getString(R.string.search_title));
-                    userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
-                }
+        if (getIntent().getExtras() != null) {
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                actionBar.setTitle(getString(R.string.send_message_to));
             } else {
                 actionBar.setTitle(getString(R.string.search_title));
+                userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
             }
-            appContactFragment = new AppContactFragment(userIdArray);
-            appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
-            channelFragment = new ChannelFragment();
-            setSearchListFragment(appContactFragment);
-
+        } else {
+            actionBar.setTitle(getString(R.string.search_title));
+        }
+        appContactFragment = new AppContactFragment(userIdArray);
+        appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
+        channelFragment = new ChannelFragment();
+        setSearchListFragment(appContactFragment);
+        if (!AlCustomizationSettings.getAddContactBroadcast()){
             if (alCustomizationSettings.isStartNewGroup()) {
                 viewPager = (ViewPager) findViewById(R.id.viewPager);
                 viewPager.setVisibility(View.VISIBLE);
