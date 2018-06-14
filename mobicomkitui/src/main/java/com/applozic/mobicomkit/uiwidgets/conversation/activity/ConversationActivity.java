@@ -741,12 +741,17 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                     }
                 }
             } else {
-                conversationUIService.startContactActivityForResult();
+                if(!AlCustomizationSettings.getAddContactBroadcast()) {
+                    conversationUIService.startContactActivityForResult();
+                }
             }
         } else if (id == R.id.conversations) {
-            Intent intent = new Intent(this, ChannelCreateActivity.class);
-            intent.putExtra(ChannelCreateActivity.GROUP_TYPE, Channel.GroupType.PUBLIC.getValue().intValue());
-            startActivity(intent);
+            if(!AlCustomizationSettings.getAddContactBroadcast()) {
+                Intent intent = new Intent(this, ChannelCreateActivity.class);
+                intent.putExtra(ChannelCreateActivity.GROUP_TYPE,
+                    Channel.GroupType.PUBLIC.getValue().intValue());
+                startActivity(intent);
+            }
         } else if (id == R.id.broadcast) {
             Intent intent = new Intent(this, ContactSelectionActivity.class);
             intent.putExtra(ContactSelectionActivity.GROUP_TYPE, Channel.GroupType.BROADCAST.getValue().intValue());
