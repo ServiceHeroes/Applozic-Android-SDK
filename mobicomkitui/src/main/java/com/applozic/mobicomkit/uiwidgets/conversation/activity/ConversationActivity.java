@@ -118,9 +118,9 @@ import java.util.Set;
 /**
  * Created by devashish on 6/25/2015.
  */
-public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface, ALStoragePermissionListener {
-
-    private static final String CHAT_CLOSED = "CHAT_CLOSED";
+public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface {
+    private static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
+    private static final String CREATE_GROUP_BROADCAST = "CREATE_GROUP_BROADCAST";
     public static final int LOCATION_SERVICE_ENABLE = 1001;
     public static final String TAKE_ORDER = "takeOrder";
     public static final String CONTACT = "contact";
@@ -745,6 +745,8 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             } else {
                 if(!AlCustomizationSettings.getAddContactBroadcast()) {
                     conversationUIService.startContactActivityForResult();
+                } else {
+                    ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, ADD_CONTACT_BROADCAST,this);
                 }
             }
         } else if (id == R.id.conversations) {
@@ -753,6 +755,8 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                 intent.putExtra(ChannelCreateActivity.GROUP_TYPE,
                     Channel.GroupType.PUBLIC.getValue().intValue());
                 startActivity(intent);
+            }  {
+                ApplozicApplication.broadcastMessage(CREATE_GROUP_BROADCAST, CREATE_GROUP_BROADCAST,this);
             }
         } else if (id == R.id.broadcast) {
             Intent intent = new Intent(this, ContactSelectionActivity.class);
