@@ -107,6 +107,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -118,7 +119,8 @@ import java.util.Set;
 /**
  * Created by devashish on 6/25/2015.
  */
-public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface {
+public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface,
+    Serializable {
     private static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
     private static final String CREATE_GROUP_BROADCAST = "CREATE_GROUP_BROADCAST";
     public static final int LOCATION_SERVICE_ENABLE = 1001;
@@ -746,7 +748,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                 if(!AlCustomizationSettings.getAddContactBroadcast()) {
                     conversationUIService.startContactActivityForResult();
                 } else {
-                    ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, ADD_CONTACT_BROADCAST,this);
+                    ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, this);
                 }
             }
         } else if (id == R.id.conversations) {
@@ -756,7 +758,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                     Channel.GroupType.PUBLIC.getValue().intValue());
                 startActivity(intent);
             }  {
-                ApplozicApplication.broadcastMessage(CREATE_GROUP_BROADCAST, CREATE_GROUP_BROADCAST,this);
+                ApplozicApplication.broadcastMessage(CREATE_GROUP_BROADCAST, this);
             }
         } else if (id == R.id.broadcast) {
             Intent intent = new Intent(this, ContactSelectionActivity.class);
