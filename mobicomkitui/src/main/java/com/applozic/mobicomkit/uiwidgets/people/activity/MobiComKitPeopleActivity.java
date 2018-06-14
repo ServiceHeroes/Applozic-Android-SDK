@@ -68,7 +68,7 @@ import java.util.Map;
 
 public class MobiComKitPeopleActivity extends AppCompatActivity implements
     OnContactsInteractionListener,
-    SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener {
+    SearchView.OnQueryTextListener, TabLayout.OnTabSelectedListener, Serializable {
 
     public static final String SHARED_TEXT = "SHARED_TEXT";
     public static final String FORWARD_MESSAGE = "forwardMessage";
@@ -117,6 +117,10 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (AlCustomizationSettings.getAddContactBroadcast()) {
+            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, null, this);
+        }
+
         if (!MobiComUserPreference.getInstance(this).isLoggedIn()) {
             finish();
         }
@@ -147,7 +151,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
 
-
         intentExtra = getIntent();
         action = intentExtra.getAction();
         type = intentExtra.getType();
@@ -162,11 +165,12 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         } else {
             actionBar.setTitle(getString(R.string.search_title));
         }
-        appContactFragment = new AppContactFragment(userIdArray);
-        appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
-        channelFragment = new ChannelFragment();
-        setSearchListFragment(appContactFragment);
-        if (!AlCustomizationSettings.getAddContactBroadcast()){
+        if (!AlCustomizationSettings.getAddContactBroadcast()) {
+            appContactFragment = new AppContactFragment(userIdArray);
+            appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
+            channelFragment = new ChannelFragment();
+            setSearchListFragment(appContactFragment);
+
             if (alCustomizationSettings.isStartNewGroup()) {
                 viewPager = (ViewPager) findViewById(R.id.viewPager);
                 viewPager.setVisibility(View.VISIBLE);
