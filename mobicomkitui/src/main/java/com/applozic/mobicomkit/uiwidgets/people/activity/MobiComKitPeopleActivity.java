@@ -77,7 +77,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     private static final String GROUP_ID = "groupId";
     private static final String GROUP_NAME = "groupName";
     private static final String USER_ID = "userId";
-    public static final String CUSTOM_CONTACTS_LIST = "CUSTOM_CONTACTS_LIST";
+    public static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     protected String searchTerm;
@@ -118,7 +118,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         if (AlCustomizationSettings.getAddContactBroadcast()) {
-            ApplozicApplication.broadcastMessage(CUSTOM_CONTACTS_LIST, null, this);
+            ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, null, this);
         }
 
         if (!MobiComUserPreference.getInstance(this).isLoggedIn()) {
