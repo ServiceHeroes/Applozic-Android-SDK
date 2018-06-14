@@ -117,10 +117,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AlCustomizationSettings.getAddContactBroadcast()) {
-            ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, null, this);
-        }
-
         if (!MobiComUserPreference.getInstance(this).isLoggedIn()) {
             finish();
         }
@@ -154,18 +150,22 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         intentExtra = getIntent();
         action = intentExtra.getAction();
         type = intentExtra.getType();
-        if (!AlCustomizationSettings.getAddContactBroadcast()) {
-            if (getIntent().getExtras() != null) {
-                if (Intent.ACTION_SEND.equals(action) && type != null) {
-                    actionBar.setTitle(getString(R.string.send_message_to));
-                } else {
-                    actionBar.setTitle(getString(R.string.search_title));
-                    userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
-                }
+
+        if (getIntent().getExtras() != null) {
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                actionBar.setTitle(getString(R.string.send_message_to));
             } else {
                 actionBar.setTitle(getString(R.string.search_title));
+                userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
             }
-        
+        } else {
+            actionBar.setTitle(getString(R.string.search_title));
+        }
+
+        if (AlCustomizationSettings.getAddContactBroadcast()) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            ApplozicApplication.broadcastMessage(ADD_CONTACT_BROADCAST, null, this);
+        } else {
             appContactFragment = new AppContactFragment(userIdArray);
             appContactFragment.setAlCustomizationSettings(alCustomizationSettings);
             channelFragment = new ChannelFragment();
@@ -182,6 +182,7 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             } else {
                 addFragment(this, appContactFragment, "AppContactFragment");
             }
+
         }
 
       /*  mContactsListFragment = (AppContactFragment)
@@ -209,18 +210,18 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_contact, menu);
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint(getResources().getString(R.string.search_hint));
-        if (Utils.hasICS()) {
-            searchItem.collapseActionView();
+        if (!AlCustomizationSettings.getAddContactBroadcast()) {
+            getMenuInflater().inflate(R.menu.menu_contact, menu);
+            MenuItem searchItem = menu.findItem(R.id.menu_search);
+            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+            searchView.setQueryHint(getResources().getString(R.string.search_hint));
+            if (Utils.hasICS()) {
+                searchItem.collapseActionView();
+            }
+            searchView.setOnQueryTextListener(this);
+            searchView.setSubmitButtonEnabled(true);
+            searchView.setIconified(true);
         }
-        searchView.setOnQueryTextListener(this);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setIconified(true);
-
         return super.onCreateOptionsMenu(menu);
     }
 
