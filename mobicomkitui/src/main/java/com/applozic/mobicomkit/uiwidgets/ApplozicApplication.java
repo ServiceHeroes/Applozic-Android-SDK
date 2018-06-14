@@ -3,6 +3,7 @@ package com.applozic.mobicomkit.uiwidgets;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 
