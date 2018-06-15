@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 
-import com.applozic.mobicomkit.uiwidgets.conversation.activity.ContactSelectionActivity;
-import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 
 /**
  * Created by devashish on 28/4/14.
@@ -36,11 +35,12 @@ public class ApplozicApplication extends Application {
         // MultiDex.install(this);
     }
 
-    public static void broadcastMessage(String actionName, ContactSelectionActivity selectionActivity, MobiComKitPeopleActivity peopleActivity){
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(ApplozicApplication.context);
+    public static void broadcastMessage(String actionName,
+        ConversationActivity activity) {
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
+            .getInstance(ApplozicApplication.context);
         Intent localIntent = new Intent(actionName);
-        localIntent.putExtra("ContactSelectionActivity", selectionActivity);
-        localIntent.putExtra("MobiComKitPeopleActivity", peopleActivity);
+        localIntent.putExtra(actionName, activity);
         localBroadcastManager.sendBroadcast(localIntent);
     }
 }
