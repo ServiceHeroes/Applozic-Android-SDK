@@ -219,4 +219,6 @@
     <string name="profile_contact_number">Contact Number</string>
     <string name="user_name">User Name</string>
     <string name="powered_by_applozic">Powered By Applozic</string>
+    <string name="invite_user">Invite</string>
+    <string name="unblock">Unblock</string>
 </resources>
