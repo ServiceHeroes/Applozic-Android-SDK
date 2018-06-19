@@ -119,9 +119,7 @@ import java.util.Set;
 /**
  * Created by devashish on 6/25/2015.
  */
-public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface, ALStoragePermissionListener {
-
-    private static final String CHAT_CLOSED = "CHAT_CLOSED";
+public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface, ALStoragePermissionListener, Serializable {
     private static final String ADD_CONTACT_BROADCAST = "ADD_CONTACT_BROADCAST";
     private static final String CREATE_GROUP_BROADCAST = "CREATE_GROUP_BROADCAST";
     public static final int LOCATION_SERVICE_ENABLE = 1001;
