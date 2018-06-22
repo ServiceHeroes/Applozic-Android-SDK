@@ -81,14 +81,6 @@
                 android:paddingRight="10dp"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp">
-                <RelativeLayout
-                    android:id="@+id/applozic_profile_displayname_verticalline_rl"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:visibility="visible"
-                    android:background="@color/profile_divider_color"/>
                 <View
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -133,20 +125,21 @@
                     android:textSize="20sp" />
             </RelativeLayout>
 
+
+            <View
+              android:layout_width="match_parent"
+              android:layout_height="2dp"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="20dp"
+              android:background="@color/profile_divider_color"
+              android:text="@string/sales_manager" />
+
             <RelativeLayout
                 android:id="@+id/applozic_profile_section_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp">
-
-                <RelativeLayout
-                    android:id="@+id/applozic_profile_verticalline_rl"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@color/profile_divider_color" />
 
                 <View
                     android:layout_width="15dp"
@@ -294,14 +287,6 @@
                 android:paddingStart="10dp"
                 android:visibility="gone">
 
-                <RelativeLayout
-                    android:id="@+id/applozic_notification_verticalline_rl"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@color/profile_divider_color" />
-
                 <View
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -360,14 +345,6 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:visibility="gone">
-
-                <RelativeLayout
-                    android:id="@+id/applozic_datausage_verticalline_rl"
-                    android:layout_width="2dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="@color/profile_divider_color" />
 
                 <View
                     android:layout_width="15dp"
