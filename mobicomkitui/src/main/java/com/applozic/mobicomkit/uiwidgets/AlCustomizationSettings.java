@@ -114,6 +114,15 @@ public class AlCustomizationSettings extends JsonMarker {
 
     private Map<String, Boolean> attachmentOptions;
 
+
+    public static boolean getCustomContactsList() {
+        return customContactsList;
+    }
+
+    public static void setCustomContactsList(boolean customContactsList) {
+        AlCustomizationSettings.customContactsList = customContactsList;
+    }
+
     public boolean isBroadcastOption() {
         return broadcastOption;
     }
