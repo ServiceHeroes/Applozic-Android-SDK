@@ -218,4 +218,5 @@
     <string name="powered_by_applozic">Powered By Applozic</string>
     <string name="invite_user">Invite</string>
     <string name="unblock">Unblock</string>
+    <string name="restricted_word_message">Restricted words are not allowed</string>
 </resources>

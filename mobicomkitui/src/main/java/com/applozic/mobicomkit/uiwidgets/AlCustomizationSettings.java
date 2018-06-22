@@ -108,6 +108,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean enableMessageFastScroll = false;
     private static boolean addContactBroadcast = false;
     private static boolean createGroupBroadcast = false;
+    private static boolean customContactsList = false;
 
     private boolean launchChatFromProfilePicOrName;
 
