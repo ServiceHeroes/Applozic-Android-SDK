@@ -88,15 +88,17 @@
                     android:background="@drawable/applozic_profile_dot" />
 
                 <ImageView
-                    android:id="@+id/displayName_edit_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:textDirection="locale"
-                    android:padding="10dp"
-                    android:src="@drawable/applozic_ic_action_edit" />
+                  android:id="@+id/displayName_edit_btn"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentEnd="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentTop="true"
+                  android:padding="10dp"
+                  android:adjustViewBounds="false"
+                  android:cropToPadding="false"
+                  android:src="@drawable/applozic_ic_action_edit"
+                  android:textDirection="locale" />
 
                 <TextView
                     android:id="@+id/applozic_profile_displayname_section_heading"
