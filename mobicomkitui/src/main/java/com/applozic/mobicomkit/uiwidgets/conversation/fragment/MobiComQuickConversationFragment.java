@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,25 +18,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.applozic.mobicomkit.ApplozicClient;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.mobicomkit.api.conversation.SyncCallService;
 import com.applozic.mobicomkit.api.conversation.database.MessageDatabaseService;
 import com.applozic.mobicomkit.broadcast.BroadcastService;
-import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.BaseContactService;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
-
-import android.support.v7.widget.RecyclerView;
-
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.conversation.AlLinearLayoutManager;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
@@ -48,7 +44,6 @@ import com.applozic.mobicommons.commons.core.utils.Utils;
 import com.applozic.mobicommons.file.FileUtils;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.SearchListFragment;
-import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.contact.Contact;
 
 import java.lang.ref.WeakReference;
@@ -56,6 +51,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+;
 
 /**
  * Created by devashish on 10/2/15.
@@ -855,9 +852,9 @@ public class MobiComQuickConversationFragment extends Fragment implements Search
                     if (emptyTextView != null) {
                         emptyTextView.setVisibility(messageList.isEmpty() ? View.VISIBLE : View.GONE);
                         if (!TextUtils.isEmpty(searchString) && messageList.isEmpty()) {
-                            emptyTextView.setText(!TextUtils.isEmpty(alCustomizationSettings.getNoSearchFoundForChatMessages()) ? alCustomizationSettings.getNoSearchFoundForChatMessages() : getResources().getString(R.string.search_not_found_for_messages));
+                            emptyTextView.setText(getResources().getString(R.string.search_not_found_for_messages));
                         } else if (TextUtils.isEmpty(searchString) && messageList.isEmpty()) {
-                            emptyTextView.setText(!TextUtils.isEmpty(alCustomizationSettings.getNoConversationLabel()) ? alCustomizationSettings.getNoConversationLabel() : getResources().getString(R.string.no_conversation));
+                            emptyTextView.setText(getResources().getString(R.string.no_conversation));
                         }
                     }
                 }

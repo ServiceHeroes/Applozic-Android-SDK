@@ -1096,7 +1096,7 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
 
                             }
                         });
-                alertDialog.setTitle(alCustomizationSettings.getRestrictedWordMessage());
+                alertDialog.setTitle(getResources().getString(R.string.restricted_word_message));
                 alertDialog.setCancelable(true);
                 alertDialog.create().show();
 
