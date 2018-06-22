@@ -104,10 +104,6 @@ public class ProfileFragment extends Fragment {
         contactNumberText = (TextView) view.findViewById(R.id.applozic_profile_contact);
         applozicProfileContactLayout =  (RelativeLayout)view.findViewById(R.id.applozic_profile_contact_section_rl);
 
-        setupDeviderView(view, R.id.applozic_profile_section_rl, R.id.applozic_profile_verticalline_rl);
-        setupDeviderView(view, R.id.applozic_datausage_section_rl, R.id.applozic_datausage_verticalline_rl);
-        setupDeviderView(view, R.id.applozic_notification_section_rl, R.id.applozic_notification_verticalline_rl);
-
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_toolbar);
         toolbar.setClickable(false);
         toolbar.setTitle(getString(R.string.applozic_user_profile_heading));
