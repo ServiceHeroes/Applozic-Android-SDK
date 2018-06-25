@@ -72,12 +72,6 @@
             android:textSize="15sp"
             android:visibility="visible" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:background="@color/multimedia_buttons_divider_background" />
-
         <Button
             android:id="@+id/mobicom_attachment_send_btn"
             android:layout_width="167dp"
