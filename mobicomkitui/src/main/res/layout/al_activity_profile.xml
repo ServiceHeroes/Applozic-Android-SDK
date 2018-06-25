@@ -20,9 +20,9 @@
             android:paddingBottom="@dimen/activity_vertical_margin">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/profile_picture_background">
+              android:layout_width="match_parent"
+              android:layout_height="119dp"
+              android:background="@color/profile_picture_background">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                   android:id="@+id/applozic_user_profile"
@@ -100,9 +100,7 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
                   android:layout_alignParentTop="true"
-                  android:padding="10dp"
                   android:adjustViewBounds="false"
                   android:cropToPadding="false"
                   android:src="@drawable/applozic_ic_action_edit"
@@ -168,32 +166,32 @@
                   android:src="@drawable/applozic_ic_action_edit" />
 
                 <TextView
-                    android:id="@+id/applozic_profile_section_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textAlignment="gravity"
-                    android:textDirection="locale"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/profile_status"
-                    android:textColor="@color/profile_titles_text"
-                    android:textSize="20sp" />
+                  android:id="@+id/applozic_profile_section_heading"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginLeft="20dp"
+                  android:text="@string/profile_status"
+                  android:textAlignment="gravity"
+                  android:textColor="@color/profile_titles_text"
+                  android:textDirection="locale"
+                  android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/applozic_profile_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="gravity"
-                    android:textDirection="locale"
-                    android:layout_below="@+id/applozic_profile_section_heading"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/no_status"
-                    android:textColor="@color/profile_values_text"
-                    android:textSize="20sp" />
+                  android:id="@+id/applozic_profile_status"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="15dp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_marginStart="15dp"
+                  android:layout_marginLeft="15dp"
+                  android:layout_below="@+id/applozic_profile_section_heading"
+                  android:text="@string/no_status"
+                  android:textAlignment="gravity"
+                  android:textColor="@color/profile_values_text"
+                  android:textDirection="locale"
+                  android:textSize="20sp" />
 
                 <TextView
                   android:id="@+id/applozic_profile_status_online"
