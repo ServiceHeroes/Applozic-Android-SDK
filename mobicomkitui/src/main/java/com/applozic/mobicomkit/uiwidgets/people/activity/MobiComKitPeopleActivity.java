@@ -149,19 +149,16 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         action = intentExtra.getAction();
         type = intentExtra.getType();
 
-            if (getIntent().getExtras() != null) {
-                if (Intent.ACTION_SEND.equals(action) && type != null) {
-                    actionBar.setTitle(getString(R.string.send_message_to));
-                } else {
-                    actionBar.setTitle(getString(R.string.search_title));
-                    userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
-                }
+        if (getIntent().getExtras() != null) {
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                actionBar.setTitle(getString(R.string.send_message_to));
             } else {
                 actionBar.setTitle(getString(R.string.search_title));
                 userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
             }
         } else {
             actionBar.setTitle(getString(R.string.search_title));
+            userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
         }
 
         appContactFragment = new AppContactFragment(userIdArray);
@@ -177,8 +174,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);
             tabLayout.addOnTabSelectedListener(this);
-        } else if (!AlCustomizationSettings.getCustomContactsList()){
-            addFragment(this, appContactFragment, "AppContactFragment");
         }
 
 
@@ -290,9 +285,9 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
                     if (FileUtils.isContentScheme(fileUri)) {
                         String mimeType = FileUtils.getMimeTypeByContentUriOrOther(this, fileUri);
                         if (TextUtils.isEmpty(mimeType)) {
-                             this.finish();
-                        }else{
-                            new ShareAsyncTask(this, fileUri, null, channel,mimeType).execute();
+                            this.finish();
+                        } else {
+                            new ShareAsyncTask(this, fileUri, null, channel, mimeType).execute();
                         }
                     } else {
                         Intent intentImage = new Intent(this,
@@ -348,8 +343,8 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
                     String mimeType = FileUtils.getMimeTypeByContentUriOrOther(this, fileUri);
                     if (TextUtils.isEmpty(mimeType)) {
                         this.finish();
-                    }else{
-                        new ShareAsyncTask(this, fileUri, contact, null,mimeType).execute();
+                    } else {
+                        new ShareAsyncTask(this, fileUri, contact, null, mimeType).execute();
                     }
 
                 } else {
@@ -545,7 +540,8 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         Channel channel;
         String mimeType;
 
-        public ShareAsyncTask(Context context, Uri uri, Contact contact, Channel channel,String mimType) {
+        public ShareAsyncTask(Context context, Uri uri, Contact contact, Channel channel,
+            String mimType) {
             this.contextWeakReference = new WeakReference<Context>(context);
             this.uri = uri;
             this.contact = contact;
