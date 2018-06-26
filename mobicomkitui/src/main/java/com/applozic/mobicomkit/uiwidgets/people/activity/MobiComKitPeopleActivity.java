@@ -150,19 +150,16 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
         action = intentExtra.getAction();
         type = intentExtra.getType();
 
-            if (getIntent().getExtras() != null) {
-                if (Intent.ACTION_SEND.equals(action) && type != null) {
-                    actionBar.setTitle(getString(R.string.send_message_to));
-                } else {
-                    actionBar.setTitle(getString(R.string.search_title));
-                    userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
-                }
+        if (getIntent().getExtras() != null) {
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                actionBar.setTitle(getString(R.string.send_message_to));
             } else {
                 actionBar.setTitle(getString(R.string.search_title));
                 userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
             }
         } else {
             actionBar.setTitle(getString(R.string.search_title));
+            userIdArray = getIntent().getStringArrayExtra(USER_ID_ARRAY);
         }
 
         appContactFragment = new AppContactFragment(userIdArray);
@@ -178,8 +175,6 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
             tabLayout.setVisibility(View.VISIBLE);
             tabLayout.setupWithViewPager(viewPager);
             tabLayout.addOnTabSelectedListener(this);
-        } else if (!AlCustomizationSettings.getCustomContactsList()){
-            addFragment(this, appContactFragment, "AppContactFragment");
         }
 
 
