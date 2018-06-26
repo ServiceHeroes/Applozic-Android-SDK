@@ -561,20 +561,16 @@ public class MobiComKitPeopleActivity extends AppCompatActivity implements
                 Context context = contextWeakReference.get();
                 if (context != null && !TextUtils.isEmpty(mimeType)) {
                     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String array[]= mimeType.split("/");
-                    String fileFormat = null;
-                        if(array.length>1){
-                            fileFormat =  array[1];
-                        }
-
-                        if (TextUtils.isEmpty(fileFormat)) {
-                            return null;
-                        }
-
-                        String fileNameToWrite = timeStamp + "." + fileFormat;
-                        File mediaFile = FileClientService.getFilePath(fileNameToWrite, context, mimeType);
-                        fileClientService.writeFile(uri, mediaFile);
-                        return mediaFile;
+                    String fileName = FileUtils.getFileName(context, uri);
+                    String fileFormat = FileUtils.getFileFormat(fileName);
+                    if (TextUtils.isEmpty(fileFormat)) {
+                        return null;
+                    }
+                    String fileNameToWrite = timeStamp + "." + fileFormat;
+                    File mediaFile = FileClientService
+                        .getFilePath(fileNameToWrite, context, mimeType);
+                    fileClientService.writeFile(uri, mediaFile);
+                    return mediaFile;
                 }
             }
             return null;
