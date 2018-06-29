@@ -755,7 +755,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
                 intent.putExtra(ChannelCreateActivity.GROUP_TYPE,
                     Channel.GroupType.PUBLIC.getValue().intValue());
                 startActivity(intent);
-            }  {
+            } else {
                 ApplozicApplication.broadcastMessage(CREATE_GROUP_BROADCAST, this);
             }
         } else if (id == R.id.broadcast) {
