@@ -1,90 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/multimedia_top_background"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:weightSum="1">
-    <include
-        android:id="@+id/mobicom_attachment_grid_View"
-        layout="@layout/mobicom_attachment_gridview_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.8" />
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="10dp"
+  android:background="@color/profile_background"
+  android:orientation="vertical"
+  android:weightSum="1">
 
-    <RelativeLayout
-        android:id="@+id/multi_attachment_heading_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_below="@+id/mobicom_attachment_grid_View"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.15">
+  <RelativeLayout
+    android:id="@+id/multi_attachment_heading_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="0.1"
+    android:background="@color/conversations_hint_color">
 
-        <EditText
-            android:id="@+id/mobicom_attachment_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:ems="10"
-            android:focusable="true"
-            android:hint="@string/Add_caption"
-            android:focusableInTouchMode="true"
-            android:inputType="textMultiLine"
-            android:textAlignment="viewStart"
-            android:layout_gravity="start"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:textColor="@color/multimedia_attachment_edit_text" />
+    <EditText
+      android:id="@+id/mobicom_attachment_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="0dp"
+      android:layout_marginLeft="0dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_gravity="start"
+      android:ems="10"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:hint="@string/Add_caption"
+      android:inputType="textMultiLine"
+      android:textAlignment="viewStart"
+      android:textColor="@color/multimedia_attachment_edit_text" />
+  </RelativeLayout>
 
+  <include
+    android:id="@+id/mobicom_attachment_grid_View"
+    layout="@layout/mobicom_attachment_gridview_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_weight="0.8"
+    android:layout_marginTop="10dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true" />
 
-    </RelativeLayout>
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/mobicom_attachment_edit_text"
+    android:background="@color/multimedia_buttons_background">
 
+    <Button
+      android:id="@+id/mobicom_attachment_cancel_btn"
+      android:layout_width="165dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="start|center_vertical"
+      android:paddingStart="10dp"
+      android:paddingLeft="10dp"
+      android:background="@color/multimedia_cancel_background"
+      android:text="@string/cancel_text"
+      android:textColor="@color/multimedia_cancel_text"
+      android:textSize="15sp"
+      android:visibility="visible" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/mobicom_attachment_edit_text"
-        android:background="@color/multimedia_buttons_background">
+    <Button
+      android:id="@+id/mobicom_attachment_send_btn"
+      android:layout_width="167dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end|center_vertical"
+      android:paddingEnd="10dp"
+      android:paddingRight="10dp"
+      android:background="@color/multimedia_send_background"
+      android:gravity="center"
+      android:text="@string/send_text"
+      android:textColor="@color/multimedia_send_text"
+      android:textSize="15sp"
+      android:visibility="visible" />
 
-        <Button
-            android:id="@+id/mobicom_attachment_cancel_btn"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:background="@color/multimedia_cancel_background"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:text="@string/cancel_text"
-            android:textColor="@color/multimedia_cancel_text"
-            android:textSize="15sp"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/mobicom_attachment_send_btn"
-            android:layout_width="167dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:background="@color/multimedia_send_background"
-            android:gravity="center"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:text="@string/send_text"
-            android:textColor="@color/multimedia_send_text"
-            android:textSize="15sp"
-            android:visibility="visible" />
-
-    </FrameLayout>
+  </FrameLayout>
 </LinearLayout>

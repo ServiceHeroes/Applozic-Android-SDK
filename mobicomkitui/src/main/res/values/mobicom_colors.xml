@@ -153,7 +153,7 @@
 
     <!-- multimedia option -->
     <color name="multimedia_text">#000000</color>
-    <color name="multimedia_top_background">#00000000</color>
+    <color name="multimedia_top_background">#FFFFFF</color>
     <color name="multimedia_buttons_background">#80000000</color>
     <color name="multimedia_buttons_divider_background">#FFFFFF</color>
     <color name="multimedia_attachment_edit_text">#000000</color>
