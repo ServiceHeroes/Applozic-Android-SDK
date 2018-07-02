@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,7 +150,7 @@ public class MobiComAttachmentGridViewAdapter extends BaseAdapter {
 
     private void setNewAttachmentView() {
         deleteButton.setVisibility(View.GONE);
-        galleryImageView.setImageResource(R.drawable.applozic_ic_action_add);
+        galleryImageView.setImageResource(R.drawable.applozic_ic_action_add_inverted);
         fileName.setVisibility(View.GONE);
         attachmentImageView.setVisibility(View.GONE);
         fileSize.setText(R.string.New_Attachment);
