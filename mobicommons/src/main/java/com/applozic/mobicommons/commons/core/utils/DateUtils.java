@@ -12,12 +12,12 @@ import java.util.concurrent.TimeUnit;
  */
 public class DateUtils {
 
-    private static final String JUST_NOW = "Just now";
-    private static final String MINUTES = " mins";
-    private static final String HOURS = " hrs";
-    private static final String H = "h";
-    private static final String AGO = " ago";
-    private static final String YESTERDAY = "Yesterday";
+    private static final String JUST_NOW = "Zojuist";
+    private static final String MINUTES = " minuten";
+    private static final String HOURS = " uur";
+    private static final String H = "u";
+    private static final String AGO = " geleden";
+    private static final String YESTERDAY = "Gisteren";
 
     public static boolean isSameDay(Long timestamp) {
         Calendar calendarForCurrent = Calendar.getInstance();
@@ -26,6 +26,7 @@ public class DateUtils {
         Date date = new Date(timestamp);
         calendarForCurrent.setTime(currentDate);
         calendarForScheduled.setTime(date);
+
         return calendarForCurrent.get(Calendar.YEAR) == calendarForScheduled.get(Calendar.YEAR) &&
                 calendarForCurrent.get(Calendar.DAY_OF_YEAR) == calendarForScheduled.get(Calendar.DAY_OF_YEAR);
     }
