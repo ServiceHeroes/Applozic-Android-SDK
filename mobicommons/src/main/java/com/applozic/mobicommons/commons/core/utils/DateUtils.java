@@ -20,6 +20,7 @@ public class DateUtils {
         Date date = new Date(timestamp);
         calendarForCurrent.setTime(currentDate);
         calendarForScheduled.setTime(date);
+
         return calendarForCurrent.get(Calendar.YEAR) == calendarForScheduled.get(Calendar.YEAR) &&
                 calendarForCurrent.get(Calendar.DAY_OF_YEAR) == calendarForScheduled.get(Calendar.DAY_OF_YEAR);
     }
