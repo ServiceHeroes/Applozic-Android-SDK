@@ -311,7 +311,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             Boolean takeOrder = getIntent().getBooleanExtra(TAKE_ORDER, false);
             if (takeOrder) {
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
-                if (upIntent != null && isTaskRoot()) {
+                if (upIntent != null) {
                     TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
                 }
                 ConversationActivity.this.finish();
@@ -836,7 +836,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         }
         if (takeOrder) {
             Intent upIntent = NavUtils.getParentActivityIntent(this);
-            if (upIntent != null && isTaskRoot()) {
+            if (upIntent != null) {
                 TaskStackBuilder.create(this).addNextIntentWithParentStack(upIntent).startActivities();
             }
             ConversationActivity.this.finish();
