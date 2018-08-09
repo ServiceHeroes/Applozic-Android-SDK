@@ -41,6 +41,8 @@ import java.util.List;
 
 import java.io.Serializable;
 
+import java.io.Serializable;
+
 /**
  * Created by sunil on 6/2/16.
  */
