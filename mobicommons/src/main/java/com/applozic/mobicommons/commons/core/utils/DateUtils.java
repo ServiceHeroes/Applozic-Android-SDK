@@ -156,7 +156,7 @@ public class DateUtils {
 
     public static String getDateAndTimeInDefaultFormat(long timestamp) {
         Date date = new Date(timestamp);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM dd, yyyy hh:mm aa");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM, yyyy HH:mm");
         return simpleDateFormat.format(date);
     }
 
