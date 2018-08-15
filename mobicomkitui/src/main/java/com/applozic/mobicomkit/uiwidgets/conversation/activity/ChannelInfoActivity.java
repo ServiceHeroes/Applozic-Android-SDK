@@ -434,6 +434,7 @@ public class ChannelInfoActivity extends AppCompatActivity implements Serializab
 
             if(AlCustomizationSettings.getAddContactBroadcast()) {
                 ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+                return true;
             }
 
             if (isUserPresent) {
