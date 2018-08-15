@@ -1297,16 +1297,6 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         }
     }
 
-    @Override
-    public boolean isPermissionGranted() {
-        return !PermissionsUtils.checkSelfForStoragePermission(this);
-    }
-
-    @Override
-    public void checkPermission(ALStoragePermission storagePermission) {
-        PermissionsUtils.requestPermissions(this, PermissionsUtils.PERMISSIONS_STORAGE, PermissionsUtils.REQUEST_STORAGE);
-        this.alStoragePermission = storagePermission;
-    }
 
     private class SyncMessagesAsyncTask extends AsyncTask<Boolean, Void, Void> {
         MobiComMessageService messageService;
