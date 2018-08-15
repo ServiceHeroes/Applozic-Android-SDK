@@ -89,7 +89,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChannelInfoActivity extends AppCompatActivity implements Serializable{
 
     public static final String GROUP_UPDTAE_INFO = "GROUP_UPDTAE_INFO";
-    private static final String UPDATE_GROUP_BROADCAST = "UPDATE_GROUP_BROADCAST";
     public static final String CHANNEL_KEY = "CHANNEL_KEY";
     public static final String USERID = "USERID";
     public static final String CHANNEL_NAME = "CHANNEL_NAME";
@@ -429,12 +428,6 @@ public class ChannelInfoActivity extends AppCompatActivity implements Serializab
             isUserPresent = ChannelService.getInstance(this).processIsUserPresentInChannel(channel.getKey());
         }
         if (id == R.id.add_member_to_channel) {
-
-            if(AlCustomizationSettings.getAddContactBroadcast()) {
-                ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
-                return true;
-            }
-
             if (isUserPresent) {
                 Utils.toggleSoftKeyBoard(ChannelInfoActivity.this, true);
                 if (alCustomizationSettings.getTotalRegisteredUserToFetch() > 0 && (alCustomizationSettings.isRegisteredUserContactListCall() || ApplozicSetting.getInstance(this).isRegisteredUsersContactCall()) && !userPreference.getWasContactListServerCallAlreadyDone()) {

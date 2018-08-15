@@ -43,6 +43,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     public static final String CHECK_BOX = "CHECK_BOX";
     public static final String IMAGE_LINK = "IMAGE_LINK";
     public static final String GROUP_TYPE = "GROUP_TYPE";
+    private static final String UPDATE_GROUP_BROADCAST = "UPDATE_GROUP_BROADCAST";
     public static boolean isSearching = false;
     protected SearchView searchView;
     Channel channel;
@@ -79,8 +80,13 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.contact_select_layout);
+
+        if(AlCustomizationSettings.getAddContactBroadcast()) {
+            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+            return;
+        }
+
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
         setSearchListFragment(contactSelectionFragment);
