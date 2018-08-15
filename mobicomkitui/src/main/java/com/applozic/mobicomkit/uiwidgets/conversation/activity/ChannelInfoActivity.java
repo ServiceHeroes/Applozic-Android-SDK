@@ -436,7 +436,7 @@ public class ChannelInfoActivity extends AppCompatActivity implements Serializab
 
             if (isUserPresent) {
                 Utils.toggleSoftKeyBoard(ChannelInfoActivity.this, true);
-                if (alCustomizationSettings.getTotalRegisteredUserToFetch() > 0 && (alCustomizationSettings.isRegisteredUserContactListCall() || ApplozicSetting.getInstance(this).isRegisteredUsersContactCall()) && !userPreference.getWasContactListServerCallAlreadyDone()) {
+                if (!AlCustomizationSettings.getAddContactBroadcast() && (alCustomizationSettings.getTotalRegisteredUserToFetch() > 0 && (alCustomizationSettings.isRegisteredUserContactListCall() || ApplozicSetting.getInstance(this).isRegisteredUsersContactCall()) && !userPreference.getWasContactListServerCallAlreadyDone())) {
                     processLoadRegisteredUsers();
                 } else {
                     Intent addMemberIntent = new Intent(ChannelInfoActivity.this, ContactSelectionActivity.class);

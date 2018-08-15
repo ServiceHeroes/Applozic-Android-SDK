@@ -119,6 +119,19 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
+
+        if(AlCustomizationSettings.getAddContactBroadcast()) {
+            Bundle params = new Bundle();
+            params.putString("groupId", channel.getClientGroupId());
+
+            Intent intent = this.getIntent();
+            intent.putExtra("data", params );
+            this.setIntent(intent);
+
+            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+            return;
+        }
+
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
         connectivityReceiver = new ConnectivityReceiver();
@@ -134,19 +147,21 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.group_create_menu, menu);
-        menu.removeItem(R.id.Next);
-        if (disableCheckBox) {
-            menu.removeItem(R.id.Done);
+        if(!AlCustomizationSettings.getAddContactBroadcast()) {
+            getMenuInflater().inflate(R.menu.group_create_menu, menu);
+            menu.removeItem(R.id.Next);
+            if (disableCheckBox) {
+                menu.removeItem(R.id.Done);
+            }
+            MenuItem searchItem = menu.findItem(R.id.menu_search);
+            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+            searchView.setQueryHint(getResources().getString(R.string.search_hint));
+            if (Utils.hasICS()) {
+                searchItem.collapseActionView();
+            }
+            searchView.setOnQueryTextListener(this);
+            searchView.setIconified(true);
         }
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint(getResources().getString(R.string.search_hint));
-        if (Utils.hasICS()) {
-            searchItem.collapseActionView();
-        }
-        searchView.setOnQueryTextListener(this);
-        searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);
     }
 
