@@ -82,10 +82,7 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_select_layout);
 
-        if(AlCustomizationSettings.getAddContactBroadcast()) {
-            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
-            return;
-        }
+
 
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
@@ -125,6 +122,12 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
+
+        if(AlCustomizationSettings.getAddContactBroadcast()) {
+            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+            return;
+        }
+        
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
         connectivityReceiver = new ConnectivityReceiver();
