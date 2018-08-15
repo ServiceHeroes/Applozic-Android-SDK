@@ -85,11 +85,25 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_select_layout);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+        if(AlCustomizationSettings.getAddContactBroadcast()) {
+            Bundle params = new Bundle();
+            params.putString("groupId", channel.getClientGroupId());
+
+            Intent intent = this.getIntent();
+            intent.putExtra("data", params );
+            this.setIntent(intent);
+
+            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+            return;
+        }
+
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
         setSearchListFragment(contactSelectionFragment);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
+
         contactService = new AppContactService(this);
         mActionBar = getSupportActionBar();
         String jsonString = FileUtils.loadSettingsJsonFile(getApplicationContext());
@@ -115,18 +129,6 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
             groupType = getIntent().getIntExtra(GROUP_TYPE, Channel.GroupType.PUBLIC.getValue().intValue());
         } else {
             mActionBar.setTitle(R.string.channel_members_title);
-        }
-
-        if(AlCustomizationSettings.getAddContactBroadcast()) {
-            Bundle params = new Bundle();
-            params.putString("groupId", channel.getClientGroupId());
-
-            Intent intent = this.getIntent();
-            intent.putExtra("data", params );
-            this.setIntent(intent);
-
-            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
-            return;
         }
 
         Bundle bundle = new Bundle();
