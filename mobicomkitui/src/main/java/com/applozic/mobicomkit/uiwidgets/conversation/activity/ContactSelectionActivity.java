@@ -88,21 +88,9 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
-        if(AlCustomizationSettings.getAddContactBroadcast()) {
-            Bundle params = new Bundle();
-            params.putString("groupId", channel.getClientGroupId());
-
-            Intent intent = this.getIntent();
-            intent.putExtra("data", params );
-            this.setIntent(intent);
-
-            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
-            return;
-        }
-
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
-        setSearchListFragment(contactSelectionFragment);
+//        setSearchListFragment(contactSelectionFragment);
 
         contactService = new AppContactService(this);
         mActionBar = getSupportActionBar();
@@ -138,6 +126,19 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
+
+
+        if(AlCustomizationSettings.getAddContactBroadcast()) {
+            Bundle params = new Bundle();
+            params.putString("groupId", channel.getClientGroupId());
+
+            Intent intent = this.getIntent();
+            intent.putExtra("data", params );
+            this.setIntent(intent);
+
+            ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
+            return;
+        }
 
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
