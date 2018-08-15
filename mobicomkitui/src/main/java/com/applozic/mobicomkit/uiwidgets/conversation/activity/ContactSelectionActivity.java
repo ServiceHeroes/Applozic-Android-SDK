@@ -85,13 +85,13 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_select_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
+
 
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
-//        setSearchListFragment(contactSelectionFragment);
-
+        setSearchListFragment(contactSelectionFragment);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
         contactService = new AppContactService(this);
         mActionBar = getSupportActionBar();
         String jsonString = FileUtils.loadSettingsJsonFile(getApplicationContext());
@@ -118,7 +118,6 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         } else {
             mActionBar.setTitle(R.string.channel_members_title);
         }
-
         Bundle bundle = new Bundle();
         bundle.putSerializable(CHANNEL_OBJECT, channel);
         bundle.putBoolean(CHECK_BOX, disableCheckBox);
@@ -126,7 +125,6 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         bundle.putString(IMAGE_LINK, imageUrl);
         bundle.putInt(GROUP_TYPE, groupType);
         contactSelectionFragment.setArguments(bundle);
-
 
         if(AlCustomizationSettings.getAddContactBroadcast()) {
             Bundle params = new Bundle();
@@ -155,19 +153,21 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.group_create_menu, menu);
-        menu.removeItem(R.id.Next);
-        if (disableCheckBox) {
-            menu.removeItem(R.id.Done);
+        if(!AlCustomizationSettings.getAddContactBroadcast()) {
+            getMenuInflater().inflate(R.menu.group_create_menu, menu);
+            menu.removeItem(R.id.Next);
+            if (disableCheckBox) {
+                menu.removeItem(R.id.Done);
+            }
+            MenuItem searchItem = menu.findItem(R.id.menu_search);
+            searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+            searchView.setQueryHint(getResources().getString(R.string.search_hint));
+            if (Utils.hasICS()) {
+                searchItem.collapseActionView();
+            }
+            searchView.setOnQueryTextListener(this);
+            searchView.setIconified(true);
         }
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint(getResources().getString(R.string.search_hint));
-        if (Utils.hasICS()) {
-            searchItem.collapseActionView();
-        }
-        searchView.setOnQueryTextListener(this);
-        searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);
     }
 
