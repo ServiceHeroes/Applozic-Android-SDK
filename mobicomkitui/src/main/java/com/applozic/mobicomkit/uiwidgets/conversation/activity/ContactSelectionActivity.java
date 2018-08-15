@@ -1,5 +1,6 @@
 package com.applozic.mobicomkit.uiwidgets.conversation.activity;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +34,8 @@ import com.applozic.mobicommons.people.SearchListFragment;
 import com.applozic.mobicommons.people.channel.Channel;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sunil on 6/2/16.
@@ -124,10 +127,17 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         contactSelectionFragment.setArguments(bundle);
 
         if(AlCustomizationSettings.getAddContactBroadcast()) {
+            Bundle params = new Bundle();
+            params.putString("groupId", channel.getClientGroupId());
+
+            Intent intent = this.getIntent();
+            intent.putExtra("data", params );
+            this.setIntent(intent);
+
             ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
             return;
         }
-        
+
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
         connectivityReceiver = new ConnectivityReceiver();
