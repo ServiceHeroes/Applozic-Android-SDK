@@ -85,8 +85,6 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_select_layout);
 
-
-
         contactDatabase = new ContactDatabase(this);
         contactSelectionFragment = new ContactSelectionFragment();
         setSearchListFragment(contactSelectionFragment);
@@ -118,13 +116,6 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         } else {
             mActionBar.setTitle(R.string.channel_members_title);
         }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(CHANNEL_OBJECT, channel);
-        bundle.putBoolean(CHECK_BOX, disableCheckBox);
-        bundle.putString(CHANNEL, name);
-        bundle.putString(IMAGE_LINK, imageUrl);
-        bundle.putInt(GROUP_TYPE, groupType);
-        contactSelectionFragment.setArguments(bundle);
 
         if(AlCustomizationSettings.getAddContactBroadcast()) {
             Bundle params = new Bundle();
@@ -137,6 +128,14 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
             ApplozicApplication.broadcastMessage(UPDATE_GROUP_BROADCAST, this);
             return;
         }
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CHANNEL_OBJECT, channel);
+        bundle.putBoolean(CHECK_BOX, disableCheckBox);
+        bundle.putString(CHANNEL, name);
+        bundle.putString(IMAGE_LINK, imageUrl);
+        bundle.putInt(GROUP_TYPE, groupType);
+        contactSelectionFragment.setArguments(bundle);
 
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
 
