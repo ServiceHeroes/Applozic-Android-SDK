@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 
+import java.io.Serializable;
+
 
 /**
  * Created by devashish on 28/4/14.
@@ -35,10 +37,9 @@ public class ApplozicApplication extends Application {
         // MultiDex.install(this);
     }
 
-    public static void broadcastMessage(String actionName,
-        ConversationActivity activity) {
+    public static void broadcastMessage(String actionName, Serializable activity) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
-            .getInstance(ApplozicApplication.context);
+                .getInstance(ApplozicApplication.context);
         Intent localIntent = new Intent(actionName);
         localIntent.putExtra(actionName, activity);
         localBroadcastManager.sendBroadcast(localIntent);
