@@ -67,7 +67,7 @@
 
     <string name="verification_success">Your phone number got verified successfully</string>
     <string name="launch_mobitexter_app">LAUNCH_MOBITEXTER</string>
-    <string name="delete_conversation">Delete</string>
+    <string name="delete_conversation">Delete conversation</string>
     <string name="sync_messages_from_server">Syncing with the server…</string>
 
     <string name="incoming_call">Received call</string>
@@ -192,4 +192,27 @@
     <string name="al_location_string">Location</string>
     <string name="restricted_words_are_not_allowed">Restricted words are not allowed</string>
     <string name="ok_alert">OK</string>
+
+    <string name="JUST_NOW">Just now</string>
+    <string name="YESTERDAY">Yesterday</string>
+
+    <plurals name="HOURS">
+        <item quantity="one">%d hr</item>
+        <item quantity="other">%d hrs</item>
+    </plurals>
+
+    <plurals name="MINUTES">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+
+    <plurals name="MINUTES_AGO">
+        <item quantity="one">%d min ago</item>
+        <item quantity="other">%d mins ago</item>
+    </plurals>
+
+    <plurals name="HOURS_AGO">
+        <item quantity="one">%d hr ago</item>
+        <item quantity="other">%d hrs ago</item>
+    </plurals>
 </resources>

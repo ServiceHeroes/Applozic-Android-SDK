@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/displayName"
-        android:layout_toRightOf="@id/profile_image_relative_layout"
+        android:layout_toRightOf="@+id/profile_image_relative_layout"
         android:ellipsize="marquee"
         android:paddingLeft="@dimen/listview_item_padding"
         android:paddingStart="@dimen/listview_item_padding"
@@ -55,7 +55,7 @@
         android:singleLine="true"
         android:textColor="#757575"
         android:textSize="14sp"
-        android:layout_toEndOf="@id/profile_image_relative_layout"
+        android:layout_toEndOf="@+id/profile_image_relative_layout"
         android:layout_alignParentEnd="true" />
 
     <!-- Use standard android.R class text1 id instead of app specific id. This is just useful for
@@ -66,14 +66,15 @@
         android:id="@+id/displayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_marginTop="6dp"
         android:textDirection="locale"
         android:textAlignment="gravity"
-        android:layout_toRightOf="@id/profile_image_relative_layout"
+        android:layout_toRightOf="@+id/profile_image_relative_layout"
         android:ellipsize="marquee"
+        android:scrollHorizontally="true"
+        android:marqueeRepeatLimit="marquee_forever"
         android:fontFamily="sans-serif-light"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/listview_item_padding"
@@ -83,8 +84,9 @@
         android:singleLine="true"
         android:textColor="#616161"
         android:textSize="15sp"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/profile_image_relative_layout" />
+        android:layout_toLeftOf="@+id/adminTextView"
+        android:layout_toStartOf="@+id/adminTextView"
+        android:layout_toEndOf="@+id/profile_image_relative_layout" />
 
 
     <!--Originally, @string/admin_text at android:text="Group Admin"-->

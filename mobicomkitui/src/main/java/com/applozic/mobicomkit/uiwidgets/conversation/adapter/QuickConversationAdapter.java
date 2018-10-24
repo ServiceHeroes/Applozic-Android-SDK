@@ -33,6 +33,7 @@ import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.BaseContactService;
 import com.applozic.mobicomkit.contact.database.ContactDatabase;
 import com.applozic.mobicomkit.uiwidgets.AlCustomizationSettings;
+import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.R;
 import com.applozic.mobicomkit.uiwidgets.alphanumbericcolor.AlphaNumberColorUtil;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
@@ -256,7 +257,7 @@ public class QuickConversationAdapter extends RecyclerView.Adapter implements Fi
                     }
                 }
                 if (myholder.createdAtTime != null) {
-                    myholder.createdAtTime.setText(DateUtils.getFormattedDateAndTime(message.getCreatedAtTime()));
+                    myholder.createdAtTime.setText(DateUtils.getFormattedDateAndTime(context, message.getCreatedAtTime(), R.string.JUST_NOW, R.plurals.MINUTES, R.plurals.HOURS));
                 }
                 int messageUnReadCount = 0;
                 if (message.getGroupId() == null && contactReceiver != null && !TextUtils.isEmpty(contactReceiver.getContactIds())) {
@@ -488,14 +489,14 @@ public class QuickConversationAdapter extends RecyclerView.Adapter implements Fi
                     continue;
                 }
 
-                if (menuItems[i].equals(context.getResources().getString(R.string.exit_group)) && (isChannelDeleted || !isUserPresentInGroup)) {
+                if (menuItems[i].equals(context.getResources().getString(R.string.exit_group)) && (isChannelDeleted || !isUserPresentInGroup || (channel != null && Channel.GroupType.BROADCAST.getValue().equals(channel.getType())))) {
                     continue;
                 }
 
                 if (menuItems[i].equals(context.getResources().getString(R.string.delete_group)) && (isUserPresentInGroup || !isChannelDeleted)) {
                     continue;
                 }
-                if (menuItems[i].equals(context.getResources().getString(R.string.delete_conversation)) && !alCustomizationSettings.isDeleteOption()) {
+                if (menuItems[i].equals(context.getResources().getString(R.string.delete_conversation)) && !(alCustomizationSettings.isDeleteOption() || ApplozicSetting.getInstance(context).isDeleteConversationOption())) {
                     continue;
                 }
 

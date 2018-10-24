@@ -11,8 +11,8 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.applozic.mobicomkit.Applozic;
 import com.applozic.mobicomkit.ApplozicClient;
-import com.applozic.mobicomkit.api.MobiComKitClientService;
 import com.applozic.mobicomkit.api.MobiComKitConstants;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.attachment.FileClientService;
@@ -21,15 +21,13 @@ import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.mobicomkit.api.conversation.database.MessageDatabaseService;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
+import com.applozic.mobicomkit.listners.AlConstantsHandler;
 import com.applozic.mobicommons.commons.core.utils.Utils;
-import com.applozic.mobicommons.commons.image.ImageUtils;
-import com.applozic.mobicommons.file.FileUtils;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.channel.ChannelUtils;
 import com.applozic.mobicommons.people.contact.Contact;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -57,6 +55,10 @@ public class NotificationService {
     private AppContactService appContactService;
     private ApplozicClient applozicClient;
     private String activityToOpen;
+    private int notificationDisableThreshold = 0;
+    private NotificationChannels notificationChannels;
+    private String[] constArray = {MobiComKitConstants.LOCATION, MobiComKitConstants.AUDIO, MobiComKitConstants.VIDEO, MobiComKitConstants.ATTACHMENT};
+    private String notificationFilePath;
 
     public NotificationService(int iconResourceID, Context context, int wearable_action_label, int wearable_action_title, int wearable_send_icon) {
         this.context = context;
@@ -68,9 +70,17 @@ public class NotificationService {
         this.appContactService = new AppContactService(context);
         this.activityToOpen = Utils.getMetaDataValue(context, "activity.open.on.notification");
         this.messageDatabaseService = new MessageDatabaseService(context);
+        this.notificationDisableThreshold = applozicClient.getNotificationMuteThreshold();
+        this.notificationFilePath = Applozic.getInstance(context).getCustomNotificationSound();
+
+        notificationChannels = new NotificationChannels(context, notificationFilePath);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannels.prepareNotificationChannels();
+        }
     }
 
-    public void notifyUser(Contact contact, Channel channel, Message message) {
+    public void notifyUser(Contact contact, Channel channel, Message message, int index) {
         if (ApplozicClient.getInstance(context).isNotificationDisabled()) {
             Utils.printLog(context, TAG, "Notification is disabled !!");
             return;
@@ -127,13 +137,13 @@ public class NotificationService {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) (System.currentTimeMillis() & 0xfffffff),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, MobiComKitConstants.AL_PUSH_NOTIFICATION)
+                new NotificationCompat.Builder(context, notificationChannels.getDefaultChannelId(muteNotifications(index)))
                         .setSmallIcon(smallIconResourceId)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setPriority(muteNotifications(index) ? NotificationCompat.PRIORITY_LOW : NotificationCompat.PRIORITY_HIGH)
                         .setWhen(System.currentTimeMillis());
-        mBuilder.setSound(TextUtils.isEmpty(MobiComUserPreference.getInstance(context).getNotificationSoundFilePath()) ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : Uri.parse(MobiComUserPreference.getInstance(context).getNotificationSoundFilePath()));
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             mBuilder.setGroup(GROUP_KEY);
             mBuilder.setGroupSummary(true);
@@ -145,8 +155,11 @@ public class NotificationService {
 
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
-        if (ApplozicClient.getInstance(context).getVibrationOnNotification()) {
+        if (ApplozicClient.getInstance(context).getVibrationOnNotification() && !muteNotifications(index)) {
             mBuilder.setVibrate(pattern);
+        }
+        if (!muteNotifications(index)) {
+            mBuilder.setSound(TextUtils.isEmpty(notificationFilePath) ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : Uri.parse(notificationFilePath));
         }
 
         NotificationCompat.InboxStyle inboxStyle =
@@ -263,13 +276,13 @@ public class NotificationService {
     public CharSequence getMessageBody(Message message, int count, Channel channel, Contact contact) {
         String notificationText;
         if (message.getContentType() == Message.ContentType.LOCATION.getValue()) {
-            notificationText = MobiComKitConstants.LOCATION;
+            notificationText = getText(0);
         } else if (message.getContentType() == Message.ContentType.AUDIO_MSG.getValue()) {
-            notificationText = MobiComKitConstants.AUDIO;
+            notificationText = getText(1);
         } else if (message.getContentType() == Message.ContentType.VIDEO_MSG.getValue()) {
-            notificationText = MobiComKitConstants.VIDEO;
+            notificationText = getText(2);
         } else if (message.hasAttachment() && TextUtils.isEmpty(message.getMessage())) {
-            notificationText = MobiComKitConstants.ATTACHMENT;
+            notificationText = getText(3);
         } else {
             notificationText = message.getMessage();
         }
@@ -292,7 +305,7 @@ public class NotificationService {
     }
 
 
-    public void notifyUserForNormalMessage(Contact contact, Channel channel, Message message) {
+    public void notifyUserForNormalMessage(Contact contact, Channel channel, Message message, int index) {
         if (ApplozicClient.getInstance(context).isNotificationDisabled()) {
             Utils.printLog(context, TAG, "Notification is disabled");
             return;
@@ -330,13 +343,13 @@ public class NotificationService {
         }
 
         if (message.getContentType() == Message.ContentType.LOCATION.getValue()) {
-            notificationText = MobiComKitConstants.LOCATION;
+            notificationText = getText(0);
         } else if (message.getContentType() == Message.ContentType.AUDIO_MSG.getValue()) {
-            notificationText = MobiComKitConstants.AUDIO;
+            notificationText = getText(1);
         } else if (message.getContentType() == Message.ContentType.VIDEO_MSG.getValue()) {
-            notificationText = MobiComKitConstants.VIDEO;
+            notificationText = getText(2);
         } else if (message.hasAttachment() && TextUtils.isEmpty(message.getMessage())) {
-            notificationText = MobiComKitConstants.ATTACHMENT;
+            notificationText = getText(3);
         } else {
             notificationText = message.getMessage();
         }
@@ -363,16 +376,15 @@ public class NotificationService {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) (System.currentTimeMillis() & 0xfffffff),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, MobiComKitConstants.AL_PUSH_NOTIFICATION);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, notificationChannels.getDefaultChannelId(muteNotifications(index)));
 
         mBuilder.setSmallIcon(smallIconResourceId)
                 .setLargeIcon(ApplozicClient.getInstance(context).isShowAppIconInNotification() ? BitmapFactory.decodeResource(context.getResources(), iconResourceId) : notificationIconBitmap != null ? notificationIconBitmap : BitmapFactory.decodeResource(context.getResources(), context.getResources().getIdentifier(channel != null && !(Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType()) || Channel.GroupType.SUPPORT_GROUP.getValue().equals(channel.getType())) ? applozicClient.getDefaultChannelImage() : applozicClient.getDefaultContactImage(), "drawable", context.getPackageName())))
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(muteNotifications(index) ? NotificationCompat.PRIORITY_LOW : NotificationCompat.PRIORITY_MAX)
                 .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
-                .setContentText(channel != null && !(Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType()) || Channel.GroupType.SUPPORT_GROUP.getValue().equals(channel.getType())) ? displayNameContact.getDisplayName() + ": " + notificationText : notificationText)
-                .setSound(TextUtils.isEmpty(MobiComUserPreference.getInstance(context).getNotificationSoundFilePath()) ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : Uri.parse(MobiComUserPreference.getInstance(context).getNotificationSoundFilePath()));
+                .setContentText(channel != null && !(Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType()) || Channel.GroupType.SUPPORT_GROUP.getValue().equals(channel.getType())) ? displayNameContact.getDisplayName() + ": " + notificationText : notificationText);
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setAutoCancel(true);
         if (ApplozicClient.getInstance(context).isUnreadCountBadgeEnabled()) {
@@ -380,6 +392,9 @@ public class NotificationService {
             if (totalCount != 0) {
                 mBuilder.setNumber(totalCount);
             }
+        }
+        if (!muteNotifications(index)) {
+            mBuilder.setSound(TextUtils.isEmpty(notificationFilePath) ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) : Uri.parse(notificationFilePath));
         }
         if (message.hasAttachment()) {
             try {
@@ -404,6 +419,25 @@ public class NotificationService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getText(int index) {
+        if (context.getApplicationContext() instanceof AlConstantsHandler) {
+            return getTextFromIndex(((AlConstantsHandler) context.getApplicationContext()).getNotificationTexts(), index);
+        }
+
+        return constArray[index];
+    }
+
+    public String getTextFromIndex(String[] texts, int index) {
+        if (texts != null && texts.length == 4) {
+            return texts[index];
+        }
+        return null;
+    }
+
+    public boolean muteNotifications(int index) {
+        return !(notificationDisableThreshold == 0 || (notificationDisableThreshold > 0 && index < notificationDisableThreshold));
     }
 
 }

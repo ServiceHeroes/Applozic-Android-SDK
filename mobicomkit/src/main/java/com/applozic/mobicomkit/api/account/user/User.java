@@ -34,6 +34,8 @@ public class User extends JsonMarker {
     private String notificationSoundFilePath;
     private Long lastMessageAtTime;
     private Map<String, String> metadata;
+    private String alBaseUrl;
+    private String kmBaseUrl;
     private Short roleType = RoleType.USER_ROLE.getValue();
 
     public List<String> getFeatures() {
@@ -236,6 +238,22 @@ public class User extends JsonMarker {
         return roleType;
     }
 
+    public String getAlBaseUrl() {
+        return alBaseUrl;
+    }
+
+    public void setAlBaseUrl(String alBaseUrl) {
+        this.alBaseUrl = alBaseUrl;
+    }
+
+    public String getKmBaseUrl() {
+        return kmBaseUrl;
+    }
+
+    public void setKmBaseUrl(String kmBaseUrl) {
+        this.kmBaseUrl = kmBaseUrl;
+    }
+
     public enum AuthenticationType {
 
         CLIENT(Short.valueOf("0")), APPLOZIC(Short.valueOf("1")), FACEBOOK(Short.valueOf("2"));
@@ -278,6 +296,24 @@ public class User extends JsonMarker {
 
         RoleType(Short r) {
             value = r;
+        }
+
+        public Short getValue() {
+            return value;
+        }
+    }
+
+    public enum PushNotificationFormat {
+        NATIVE(Short.valueOf("0")),
+        PHONEGAP(Short.valueOf("1")),
+        IONIC(Short.valueOf("2")),
+        NATIVESCRIPT(Short.valueOf("3")),
+        PUSHY_ME(Short.valueOf("4"));
+
+        private Short value;
+
+        PushNotificationFormat(Short p) {
+            value = p;
         }
 
         public Short getValue() {

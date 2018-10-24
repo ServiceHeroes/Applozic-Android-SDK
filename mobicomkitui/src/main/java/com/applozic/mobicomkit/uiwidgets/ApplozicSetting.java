@@ -67,9 +67,12 @@ public class ApplozicSetting {
     private static final String USER_PROFILE_FRAGMENT = "PROFILE_LOGOUT_BUTTON";
     private static final String MESSAGE_SEARCH_OPTION = "MESSAGE_SEARCH_OPTION";
     private static final String ACTIVITY_CALLBACK = "ACTIVITY_CALLBACK_";
+    private static final String DELETE_CONVERSATION_OPTION = "DELETE_CONVERSATION_OPTION";
     public static ApplozicSetting applozicSetting;
     public SharedPreferences sharedPreferences;
     private Context context;
+
+    private static final String SHOW_IMAGE_ON_TOOLBAR = "SHOW_IMAGE_ON_TOOLBAR";
 
     private ApplozicSetting(Context context) {
         this.context = context;
@@ -657,6 +660,28 @@ public class ApplozicSetting {
 
     public boolean isMessageSearchEnabled() {
         return sharedPreferences.getBoolean(MESSAGE_SEARCH_OPTION, false);
+    }
+
+    public ApplozicSetting enableShowImageOnToolbar() {
+        sharedPreferences.edit().putBoolean(SHOW_IMAGE_ON_TOOLBAR, true).commit();
+        return this;
+    }
+
+    public ApplozicSetting disableShowImageOnToolbar() {
+        sharedPreferences.edit().putBoolean(SHOW_IMAGE_ON_TOOLBAR, false).commit();
+        return this;
+    }
+
+    public boolean isShowImageOnToolbar() {
+        return sharedPreferences.getBoolean(SHOW_IMAGE_ON_TOOLBAR, false);
+    }
+
+    public boolean isDeleteConversationOption() {
+        return sharedPreferences.getBoolean(DELETE_CONVERSATION_OPTION, false);
+    }
+
+    public void setDeleteConversationOption(boolean enable) {
+        sharedPreferences.edit().putBoolean(DELETE_CONVERSATION_OPTION, enable).commit();
     }
 
     public boolean clearAll() {

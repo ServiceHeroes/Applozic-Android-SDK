@@ -3,6 +3,7 @@ package com.applozic.mobicomkit.api.conversation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 
@@ -44,10 +45,15 @@ public class MessageIntentService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         messageClientService = new MessageClientService(MessageIntentService.this);
         final Message message = (Message) GsonUtils.getObjectFromJson(intent.getStringExtra(MobiComKitConstants.MESSAGE_JSON_INTENT), Message.class);
-        Thread thread = new Thread(new MessageSender(message, uploadQueueMap.get(message.getCreatedAtTime())));
-        thread.start();
-    }
 
+        try {
+            Thread thread = new Thread(new MessageSender(message, uploadQueueMap.get(message.getCreatedAtTime())));
+            thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+            thread.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private class MessageSender implements Runnable {
         private Message message;
@@ -69,5 +75,4 @@ public class MessageIntentService extends JobIntentService {
             }
         }
     }
-
 }

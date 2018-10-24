@@ -1,5 +1,7 @@
 package com.applozic.mobicomkit.uiwidgets.conversation.activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,7 +20,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.applozic.mobicomkit.api.account.user.AlUserSearchTask;
 import com.applozic.mobicomkit.broadcast.ConnectivityReceiver;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.contact.database.ContactDatabase;
@@ -30,11 +34,15 @@ import com.applozic.mobicommons.file.FileUtils;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.SearchListFragment;
 import com.applozic.mobicommons.people.channel.Channel;
+import com.applozic.mobicommons.people.contact.Contact;
+
+import java.util.List;
 
 /**
  * Created by sunil on 6/2/16.
  */
-public class ContactSelectionActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ContactSelectionActivity extends AppCompatActivity implements SearchView
+        .OnQueryTextListener {
     public static final String CHANNEL = "CHANNEL_NAME";
     public static final String CHANNEL_OBJECT = "CHANNEL";
     public static final String CHECK_BOX = "CHECK_BOX";
@@ -57,7 +65,8 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
     private AppContactService contactService;
     private ConnectivityReceiver connectivityReceiver;
 
-    public static void addFragment(FragmentActivity fragmentActivity, Fragment fragmentToAdd, String fragmentTag) {
+    public static void addFragment(FragmentActivity fragmentActivity, Fragment fragmentToAdd,
+                                   String fragmentTag) {
         FragmentManager supportFragmentManager = fragmentActivity.getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = supportFragmentManager
@@ -86,14 +95,18 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         mActionBar = getSupportActionBar();
         String jsonString = FileUtils.loadSettingsJsonFile(getApplicationContext());
         if (!TextUtils.isEmpty(jsonString)) {
-            alCustomizationSettings = (AlCustomizationSettings) GsonUtils.getObjectFromJson(jsonString, AlCustomizationSettings.class);
+            alCustomizationSettings = (AlCustomizationSettings) GsonUtils.getObjectFromJson
+                    (jsonString, AlCustomizationSettings.class);
         } else {
             alCustomizationSettings = new AlCustomizationSettings();
         }
-        if (!TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimary()) && !TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimaryDark())) {
-            mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor(alCustomizationSettings.getThemeColorPrimary())));
+        if (!TextUtils.isEmpty(alCustomizationSettings.getThemeColorPrimary()) && !TextUtils
+                .isEmpty(alCustomizationSettings.getThemeColorPrimaryDark())) {
+            mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor
+                    (alCustomizationSettings.getThemeColorPrimary())));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(Color.parseColor(alCustomizationSettings.getThemeColorPrimaryDark()));
+                getWindow().setStatusBarColor(Color.parseColor(alCustomizationSettings
+                        .getThemeColorPrimaryDark()));
             }
         }
         mActionBar.setDisplayShowHomeEnabled(true);
@@ -104,7 +117,8 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
             mActionBar.setTitle(R.string.channel_member_title);
             name = getIntent().getStringExtra(CHANNEL);
             imageUrl = getIntent().getStringExtra(IMAGE_LINK);
-            groupType = getIntent().getIntExtra(GROUP_TYPE, Channel.GroupType.PUBLIC.getValue().intValue());
+            groupType = getIntent().getIntExtra(GROUP_TYPE, Channel.GroupType.PUBLIC.getValue()
+                    .intValue());
         } else {
             mActionBar.setTitle(R.string.channel_members_title);
         }
@@ -117,7 +131,8 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
         contactSelectionFragment.setArguments(bundle);
         addFragment(this, contactSelectionFragment, "ContactSelectionFragment");
         connectivityReceiver = new ConnectivityReceiver();
-        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager
+                .CONNECTIVITY_ACTION));
     }
 
     @Override
@@ -162,15 +177,47 @@ public class ContactSelectionActivity extends AppCompatActivity implements Searc
 
     @Override
     public boolean onSupportNavigateUp() {
-        this.finish();
-        return super.onSupportNavigateUp();
+        onBackPressed();
+        return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         this.mSearchTerm = query;
         isSearching = false;
+
+        if (alCustomizationSettings.isContactSearchFromServer()) {
+            processSearchCall(query);
+        }
+
         return false;
+    }
+
+    public void processSearchCall(String query) {
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setMessage(getResources().getString(R.string.applozic_contacts_loading_info));
+        dialog.show();
+
+        new AlUserSearchTask(this, query, new AlUserSearchTask.AlUserSearchHandler() {
+            @Override
+            public void onSuccess(List<Contact> contacts, Context context) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                if (!contacts.isEmpty() && contactSelectionFragment != null) {
+                    contactSelectionFragment.restartLoader();
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e, Context context) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                Toast.makeText(context, R.string.applozic_server_error, Toast.LENGTH_SHORT).show();
+            }
+        }).execute();
     }
 
     @Override

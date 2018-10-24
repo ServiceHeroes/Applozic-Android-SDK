@@ -170,6 +170,10 @@ public class ChannelInfoActivity extends AppCompatActivity {
         if (alCustomizationSettings.isHideGroupExitButton()) {
             channelExitRelativeLayout.setVisibility(View.GONE);
         }
+        if (alCustomizationSettings.isHideGroupDeleteButton()) {
+            channelDeleteRelativeLayout.setVisibility(View.GONE);
+        }
+
         if (getIntent().getExtras() != null) {
             channelKey = getIntent().getIntExtra(CHANNEL_KEY, 0);
             channel = ChannelService.getInstance(this).getChannelByChannelKey(channelKey);
@@ -196,6 +200,8 @@ public class ChannelInfoActivity extends AppCompatActivity {
             if (Channel.GroupType.BROADCAST.getValue().equals(channel.getType())) {
                 deleteChannelButton.setText(R.string.broadcast_delete_button);
                 exitChannelButton.setText(R.string.broadcast_exit_button);
+                channelExitRelativeLayout.setVisibility(View.GONE);
+                channelDeleteRelativeLayout.setVisibility(View.VISIBLE);
             } else {
                 deleteChannelButton.setText(R.string.channel_delete_group_button);
                 exitChannelButton.setText(R.string.channel_exit_button);
@@ -406,7 +412,7 @@ public class ChannelInfoActivity extends AppCompatActivity {
             if (menuItems[i].equals(getString(R.string.remove_member)) && (isHideRemove || !isUserPresent || !ChannelUtils.isAdminUserId(userPreference.getUserId(), channel) && loggedInUserMapper != null && Integer.valueOf(0).equals(loggedInUserMapper.getRole()) || loggedInUserMapper != null && ChannelUserMapper.UserRole.MEMBER.getValue().equals(loggedInUserMapper.getRole()))) {
                 continue;
             }
-            if (menuItems[i].equals(getString(R.string.make_admin_text_info)) && (!isUserPresent || ChannelUserMapper.UserRole.ADMIN.getValue().equals(channelUserMapper.getRole()))) {
+            if (menuItems[i].equals(getString(R.string.make_admin_text_info)) && (!isUserPresent || ChannelUserMapper.UserRole.ADMIN.getValue().equals(channelUserMapper.getRole()) || (channel != null && Channel.GroupType.BROADCAST.getValue().equals(channel.getType())))) {
                 continue;
             }
             if (menuItems[i].equals(getString(R.string.make_admin_text_info))) {
@@ -652,6 +658,8 @@ public class ChannelInfoActivity extends AppCompatActivity {
                 holder.circleImageView = (CircleImageView) convertView.findViewById(R.id.contactImage);
                 holder.adminTextView = (TextView) convertView.findViewById(R.id.adminTextView);
                 holder.lastSeenAtTextView = (TextView) convertView.findViewById(R.id.lastSeenAtTextView);
+                holder.displayName.setSelected(true);
+                holder.displayName.requestFocus();
                 convertView.setTag(holder);
             } else {
                 holder = (ContactViewHolder) convertView.getTag();
@@ -678,7 +686,7 @@ public class ChannelInfoActivity extends AppCompatActivity {
                     holder.lastSeenAtTextView.setText(getString(R.string.user_online));
                 } else if (contact.getLastSeenAt() != 0) {
                     holder.lastSeenAtTextView.setVisibility(View.VISIBLE);
-                    holder.lastSeenAtTextView.setText(getString(R.string.subtitle_last_seen_at_time) + " " + String.valueOf(DateUtils.getDateAndTimeForLastSeen(contact.getLastSeenAt())));
+                    holder.lastSeenAtTextView.setText(getString(R.string.subtitle_last_seen_at_time) + " " + String.valueOf(DateUtils.getDateAndTimeForLastSeen(ChannelInfoActivity.this, contact.getLastSeenAt(), R.string.JUST_NOW, R.plurals.MINUTES_AGO, R.plurals.HOURS_AGO, R.string.YESTERDAY)));
                 } else {
                     holder.lastSeenAtTextView.setVisibility(View.GONE);
                     holder.lastSeenAtTextView.setText("");

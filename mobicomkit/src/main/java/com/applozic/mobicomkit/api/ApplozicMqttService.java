@@ -252,12 +252,6 @@ public class ApplozicMqttService extends MobiComKitClientService implements Mqtt
                                     }
                                     Message message = messageResponse.getMessage();
                                     if (message.getGroupId() != null) {
-                                        try {
-                                            if (message.isGroupMetaDataUpdated()) {
-                                                ChannelService.getInstance(context).syncChannels(true);
-                                            }
-                                        } catch (Exception e) {
-                                        }
                                         Channel channel = ChannelService.getInstance(context).getChannelByChannelKey(message.getGroupId());
                                         if (channel != null && Channel.GroupType.OPEN.getValue().equals(channel.getType())) {
                                             if (!MobiComUserPreference.getInstance(context).getDeviceKeyString().equals(message.getDeviceKeyString())) {
@@ -405,6 +399,7 @@ public class ApplozicMqttService extends MobiComKitClientService implements Mqtt
 
                     }
                 });
+                thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 thread.start();
             }
 

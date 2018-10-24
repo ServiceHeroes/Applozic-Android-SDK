@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.applozic.mobicomkit.ApplozicClient;
 import com.applozic.mobicomkit.api.HttpRequestUtils;
 import com.applozic.mobicomkit.api.MobiComKitClientService;
+import com.applozic.mobicomkit.api.MobiComKitConstants;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.account.user.UserDetail;
 import com.applozic.mobicomkit.api.attachment.FileClientService;
@@ -274,8 +275,9 @@ public class MessageClientService extends MobiComKitClientService {
             String createdAt = messageResponse.getCreatedAtTime();
             message.setSentMessageTimeAtServer(Long.parseLong(createdAt));
             message.setKeyString(keyString);
+            message.setSentToServer(true);
 
-        /*recentMessageSentToServer.add(message);*/
+            /*recentMessageSentToServer.add(message);*/
 
             if (broadcast) {
                 BroadcastService.sendMessageUpdateBroadcast(context, BroadcastService.INTENT_ACTIONS.MESSAGE_SYNC_ACK_FROM_SERVER.toString(), message);
@@ -300,7 +302,6 @@ public class MessageClientService extends MobiComKitClientService {
     }
 
     public void processMessage(Message message, Handler handler) throws Exception {
-
         boolean isBroadcast = (message.getMessageId() == null);
 
         MobiComUserPreference userPreferences = MobiComUserPreference.getInstance(context);
@@ -324,8 +325,10 @@ public class MessageClientService extends MobiComKitClientService {
 
         List<String> fileKeys = new ArrayList<String>();
         String keyString = null;
+        String oldMessageKey = null;
         if (!isBroadcastOneByOneGroupType) {
             keyString = UUID.randomUUID().toString();
+            oldMessageKey = keyString;
             message.setKeyString(keyString);
             message.setSentToServer(false);
         } else {
@@ -346,7 +349,7 @@ public class MessageClientService extends MobiComKitClientService {
         if (!isBroadcastOneByOneGroupType && message.isUploadRequired() && !isOpenGroup) {
             for (String filePath : message.getFilePaths()) {
                 try {
-                    String fileMetaResponse = new FileClientService(context).uploadBlobImage(filePath, handler);
+                    String fileMetaResponse = new FileClientService(context).uploadBlobImage(filePath, handler, oldMessageKey);
                     if (fileMetaResponse == null) {
                         if (skipMessage) {
                             return;
@@ -355,6 +358,7 @@ public class MessageClientService extends MobiComKitClientService {
                             android.os.Message msg = handler.obtainMessage();
                             msg.what = MobiComConversationService.UPLOAD_COMPLETED;
                             msg.getData().putString("error", "Error while uploading");
+                            msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                             msg.sendToTarget();
                         }
                         if (!message.isContactMessage()) {
@@ -369,6 +373,7 @@ public class MessageClientService extends MobiComKitClientService {
                             if (handler != null) {
                                 android.os.Message msg = handler.obtainMessage();
                                 msg.what = MobiComConversationService.UPLOAD_COMPLETED;
+                                msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                                 msg.getData().putString("error", null);
                                 msg.sendToTarget();
                             }
@@ -382,6 +387,7 @@ public class MessageClientService extends MobiComKitClientService {
                             if (handler != null) {
                                 android.os.Message msg = handler.obtainMessage();
                                 msg.what = MobiComConversationService.UPLOAD_COMPLETED;
+                                msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                                 msg.getData().putString("error", null);
                                 msg.sendToTarget();
                             }
@@ -392,10 +398,11 @@ public class MessageClientService extends MobiComKitClientService {
                     if (handler != null) {
                         android.os.Message msg = handler.obtainMessage();
                         msg.what = MobiComConversationService.UPLOAD_COMPLETED;
+                        msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                         msg.getData().putString("error", "Error uploading file to server: " + filePath);
                         msg.sendToTarget();
                     }
-                  /*  recentMessageSentToServer.remove(message);*/
+                    /*  recentMessageSentToServer.remove(message);*/
                     if (!message.isContactMessage() && !skipMessage) {
                         messageDatabaseService.updateCanceledFlag(messageId, 1);
                     }
@@ -456,6 +463,7 @@ public class MessageClientService extends MobiComKitClientService {
                         android.os.Message msg = handler.obtainMessage();
                         msg.what = MobiComConversationService.UPLOAD_COMPLETED;
                         msg.getData().putString("error", "Error uploading file to server");
+                        msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                         msg.sendToTarget();
                     }
                     BroadcastService.sendMessageUpdateBroadcast(context, BroadcastService.INTENT_ACTIONS.UPLOAD_ATTACHMENT_FAILED.toString(), message);
@@ -480,7 +488,10 @@ public class MessageClientService extends MobiComKitClientService {
                 if (handler != null) {
                     android.os.Message msg = handler.obtainMessage();
                     msg.what = MobiComConversationService.MESSAGE_SENT;
-                    msg.getData().putString("message", message.getKeyString());
+                    msg.getData().putString(MobiComKitConstants.MESSAGE_INTENT_EXTRA, message.getKeyString());
+                    String messageJson = GsonUtils.getJsonFromObject(message, Message.class);
+                    msg.getData().putString(MobiComKitConstants.MESSAGE_JSON_INTENT_EXTRA, messageJson);
+                    msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                     msg.sendToTarget();
                 }
             }
@@ -498,6 +509,7 @@ public class MessageClientService extends MobiComKitClientService {
             if (handler != null) {
                 android.os.Message msg = handler.obtainMessage();
                 msg.what = MobiComConversationService.UPLOAD_COMPLETED;
+                msg.getData().putString(MobiComKitConstants.OLD_MESSAGE_KEY_INTENT_EXTRA, oldMessageKey);
                 msg.getData().putString("error", "Error uploading file");
                 msg.sendToTarget();
                 //handler.onCompleted(new ApplozicException("Error uploading file"));
@@ -638,10 +650,10 @@ public class MessageClientService extends MobiComKitClientService {
     }
 
     public String getMessages(Contact contact, Channel channel, Long startTime, Long endTime, Integer conversationId) throws UnsupportedEncodingException {
-        return getMessages(contact, channel, startTime, endTime, conversationId,false);
+        return getMessages(contact, channel, startTime, endTime, conversationId, false);
     }
 
-     public String getMessages(Contact contact, Channel channel, Long startTime, Long endTime, Integer conversationId, boolean isSkipRead) throws UnsupportedEncodingException {
+    public String getMessages(Contact contact, Channel channel, Long startTime, Long endTime, Integer conversationId, boolean isSkipRead) throws UnsupportedEncodingException {
         String params = "";
         if (contact != null || channel != null) {
             params = isSkipRead ? "skipRead=" + isSkipRead + "&startIndex=0&pageSize=50" + "&" : "startIndex=0&pageSize=50&";
@@ -666,7 +678,7 @@ public class MessageClientService extends MobiComKitClientService {
         }
         params = params + "&" + "deletedGroupIncluded=true";
 
-        if(!TextUtils.isEmpty(MobiComUserPreference.getInstance(context).getCategoryName())){
+        if (!TextUtils.isEmpty(MobiComUserPreference.getInstance(context).getCategoryName())) {
             params = params + "&category=" + MobiComUserPreference.getInstance(context).getCategoryName();
         }
 

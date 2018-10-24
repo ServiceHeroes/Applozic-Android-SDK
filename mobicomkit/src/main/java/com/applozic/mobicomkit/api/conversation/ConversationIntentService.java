@@ -2,6 +2,7 @@ package com.applozic.mobicomkit.api.conversation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.text.TextUtils;
@@ -63,7 +64,13 @@ public class ConversationIntentService extends JobIntentService {
 
         if (mutedUserListSync) {
             Utils.printLog(ConversationIntentService.this, TAG, "Muted user list sync started..");
-            new Thread(new MutedUserListSync()).start();
+            try {
+                Thread thread = new Thread(new MutedUserListSync());
+                thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                thread.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
 
@@ -82,6 +89,7 @@ public class ConversationIntentService extends JobIntentService {
                 mobiComMessageService.syncMessages();
             } else {
                 Thread thread = new Thread(new ConversationSync());
+                thread.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 thread.start();
             }
         }
@@ -143,5 +151,5 @@ public class ConversationIntentService extends JobIntentService {
             }
         }
     }
-
 }
+

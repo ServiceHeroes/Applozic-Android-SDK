@@ -106,8 +106,14 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean enableImageCompression = false;
     private boolean disableGlobalStoragePermission = false;
     private boolean enableMessageFastScroll = false;
+    private boolean isContactSearchFromServer = false;
+    private String messageSearchTextColor = "#5fba7d";
+    private int notificationDisableThreshold = 0;
+    private boolean hideGroupDeleteButton = false;
 
-    private boolean launchChatFromProfilePicOrName;
+    private boolean launchChatFromProfilePicOrName = false;
+
+    private boolean showImageOnToolbar = false;
 
     private Map<String, Boolean> attachmentOptions;
 
@@ -552,6 +558,26 @@ public class AlCustomizationSettings extends JsonMarker {
 
     public boolean isMessageFastScrollEnabled() {
         return enableMessageFastScroll;
+    }
+
+    public boolean isContactSearchFromServer() {
+        return isContactSearchFromServer;
+    }
+
+    public String getMessageSearchTextColor() {
+        return messageSearchTextColor;
+    }
+
+    public int getNotificationDisableThreshold() {
+        return notificationDisableThreshold;
+    }
+
+    public boolean isHideGroupDeleteButton() {
+        return hideGroupDeleteButton;
+    }
+
+    public boolean isShowImageOnToolbar() {
+        return showImageOnToolbar;
     }
 
     @Override
