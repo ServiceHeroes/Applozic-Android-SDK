@@ -65,7 +65,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text=""
-            android:textColor="@color/message_details_text_color"
+            android:textColor="@color/contact_list_contact_title_text"
             android:textSize="14sp"
             android:visibility="visible" />
 
@@ -97,7 +97,7 @@
         android:singleLine="true"
         android:text="@string/search_match_other"
         android:textAlignment="gravity"
-        android:textColor="@color/message_text_color"
+        android:textColor="@color/contact_list_search_other_text"
         android:textDirection="locale"
         android:textSize="14dp"
         android:visibility="visible" />
@@ -122,7 +122,7 @@
         android:paddingLeft="@dimen/listview_item_padding"
         android:paddingStart="@dimen/listview_item_padding"
         android:singleLine="true"
-        android:textColor="@color/message_details_text_color"
+        android:textColor="@color/contact_list_last_message_text"
         android:textDirection="locale"
         android:textSize="18sp" />
 
@@ -145,9 +145,9 @@
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="Unblock"
+            android:text="@string/unblock"
             android:textAlignment="gravity"
-            android:textColor="@color/alphabet_g"
+            android:textColor="@color/contact_list_unblock_text"
             android:textDirection="locale"
             android:textSize="12sp"
             android:visibility="gone" />
@@ -165,9 +165,9 @@
             android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="Invite"
+            android:text="@string/invite_user"
             android:textAlignment="gravity"
-            android:textColor="@color/alphabet_k"
+            android:textColor="@color/contact_list_invite_text"
             android:textDirection="locale"
             android:textSize="12sp"
             android:visibility="visible" />
