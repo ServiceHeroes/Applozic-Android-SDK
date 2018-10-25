@@ -60,7 +60,7 @@
         android:paddingLeft="@dimen/listview_item_padding"
         android:singleLine="true"
         android:text=""
-        android:textColor="@color/message_text_color"
+        android:textColor="@color/search_group_members_text_color"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -85,7 +85,7 @@
         android:paddingLeft="@dimen/listview_item_padding"
         android:singleLine="true"
         android:textDirection="locale"
-        android:textColor="@color/message_text_color"
+        android:textColor="@color/search_group_text_color"
         android:textSize="18sp" />
 
 

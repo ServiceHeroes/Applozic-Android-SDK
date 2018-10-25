@@ -19,4 +19,11 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColor">@color/toolbar_dropdown_text</item>
+        <item name="android:textColorPrimary">@color/title_color</item>
+        <item name="android:textColorSecondary">@color/subtitles_backbutton_settings_color</item>
+        <item name="actionMenuTextColor">@color/group_next_done_button_color</item>
+    </style>
+
 </resources>

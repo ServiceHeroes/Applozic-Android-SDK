@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/single_conversation_background"
     android:visibility="visible">
 
     <FrameLayout
@@ -119,6 +120,7 @@
         android:gravity="center_vertical|center_horizontal"
         android:text="@string/empty_conversations"
         android:textColor="@color/conversations_none_text"
+        android:background="@color/single_conversation_background"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -288,7 +290,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/conversations_individual_message_background"
+            android:background="@color/single_conversation_background"
             android:orientation="horizontal"
             android:visibility="gone">
 
